@@ -1,7 +1,7 @@
 
 const Dashboard = () => {
   return (
-    <div className="relative flex size-full min-h-screen flex-col bg-[#111418] dark group/design-root overflow-x-hidden" style={{ fontFamily: `"Work Sans", "Noto Sans", sans-serif;` }}>
+    <div className="relative flex size-full min-h-screen flex-col bg-[#111418] dark group/design-root overflow-x-hidden" style={{ fontFamily: `"Work Sans", "Noto Sans", sans-serif` }}>
         <div className="layout-container flex h-full grow flex-col">
           <div className="gap-1 px-6 flex flex-1 justify-center py-5">
             <div className="layout-content-container flex flex-col w-80">
@@ -188,7 +188,7 @@ const Dashboard = () => {
                 <div className="flex items-center gap-4">
                   <div
                     className="bg-center bg-no-repeat aspect-square bg-cover rounded-full h-14 w-fit"
-                    style={{ backgroundImage: `url("https://cdn.usegalileo.ai/sdxl10/7eca9ffe-2884-4259-97b6-9685f4138343.png");` }}
+                    style={{ backgroundImage: `url("https://cdn.usegalileo.ai/sdxl10/7eca9ffe-2884-4259-97b6-9685f4138343.png")` }}
                   ></div>
                   <div className="flex flex-col justify-center">
                     <p className="text-white text-base font-medium leading-normal line-clamp-1">Sent to 0x4a...c1</p>
