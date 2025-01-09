@@ -20,17 +20,17 @@ const Transactions = () => {
         <>
             <h3 className="text-white text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">Recent Transactions</h3>
             <ul>
-        {signatures.map((sig) => (
-            <li key={sig.signature} className="text-white">
-                <strong>Signature:</strong> {sig.signature} <br />
-                <strong>Slot:</strong> {sig.slot} <br />
-                <strong>Block Time:</strong> {sig.blockTime
-                ? new Date(sig.blockTime * 1000).toLocaleString()
-                : 'N/A'} <br />
-                <strong>Status:</strong> {sig.err ? 'Failed' : 'Success'} <br /> <br />
-            </li>
-        ))}
-      </ul>
+                {signatures.map((sig) => (
+                    <li key={sig.signature} className="text-white">
+                        <strong>Signature:</strong> {sig.signature} <br />
+                        <strong>Slot:</strong> {sig.slot} <br />
+                        <strong>Block Time:</strong> {sig.blockTime
+                        ? new Date(sig.blockTime * 1000).toLocaleString()
+                        : 'N/A'} <br />
+                        <strong>Status:</strong> {sig.err ? 'Failed' : 'Success'} <br /> <br />
+                    </li>
+                ))}
+            </ul>
               <div className="flex items-center gap-4 bg-[#111418] px-4 min-h-[72px] py-2 justify-between">
                 <div className="flex items-center gap-4">
                   <div
