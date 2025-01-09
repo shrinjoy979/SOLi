@@ -1,6 +1,7 @@
 import { useConnection, useWallet } from "@solana/wallet-adapter-react"
 import { LAMPORTS_PER_SOL } from "@solana/web3.js";
 import { useState } from "react";
+import { toast } from 'react-toastify';
 
 const RequestAirdrop = () => {
     const [amount, setAmount] = useState("");
@@ -13,7 +14,7 @@ const RequestAirdrop = () => {
 
     async function sendAirdropToUser() {
         connection.requestAirdrop(wallet.publicKey!, Number(amount) * LAMPORTS_PER_SOL);
-        alert("airdropped sol");
+        toast.success("Airdropped SOL");
     }
     
     return(
