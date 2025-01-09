@@ -1,4 +1,25 @@
+import { useConnection, useWallet } from "@solana/wallet-adapter-react"
+import { LAMPORTS_PER_SOL, PublicKey, SystemProgram, Transaction } from "@solana/web3.js";
+
 const SendTokens = () => {
+    const wallet = useWallet();
+    const { connection } = useConnection();
+
+
+    async function sendTokens() {
+        let to = (document.getElementById("to") as HTMLInputElement)!.value;
+        let amount = (document.getElementById("amount") as HTMLInputElement)!.value
+
+        const transaction = new Transaction();
+        transaction.add(SystemProgram.transfer({
+            fromPubkey: wallet.publicKey!,
+            toPubkey: new PublicKey(to),
+            lamports: Number(amount) * LAMPORTS_PER_SOL,
+        }));
+
+        await wallet.sendTransaction(transaction, connection);
+        alert("Sent " + amount + " SOL to " + to);
+    }
 
     return (
         <div className="relative flex size-full min-h-screen flex-col bg-[#111418] dark group/design-root overflow-x-hidden" style={{ fontFamily: `"Work Sans", "Noto Sans", sans-serif` }}>
@@ -18,35 +39,19 @@ const SendTokens = () => {
                         <input
                             placeholder="Enter address"
                             className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-white focus:outline-0 focus:ring-0 border border-[#3c4753] bg-[#1c2126] focus:border-[#3c4753] h-14 placeholder:text-[#9dabb8] p-[15px] text-base font-normal leading-normal"
-                            value=""
+                            id="to"
                         />
                     </label>
                     </div>
                     <div className="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
-                    <label className="flex flex-col min-w-40 flex-1">
-                        <p className="text-white text-base font-medium leading-normal pb-2">Amount (SOL)</p>
-                        <input
-                        placeholder="0.00"
-                        className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-white focus:outline-0 focus:ring-0 border border-[#3c4753] bg-[#1c2126] focus:border-[#3c4753] h-14 placeholder:text-[#9dabb8] p-[15px] text-base font-normal leading-normal"
-                        value=""
-                        />
-                    </label>
-                    <label className="flex flex-col min-w-40 flex-1">
-                        <input
-                        placeholder="USD"
-                        className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-white focus:outline-0 focus:ring-0 border border-[#3c4753] bg-[#1c2126] focus:border-[#3c4753] h-14 placeholder:text-[#9dabb8] p-[15px] text-base font-normal leading-normal"
-                        value=""
-                        />
-                    </label>
-                    </div>
-                    <div className="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
-                    <label className="flex flex-col min-w-40 flex-1">
-                        <p className="text-white text-base font-medium leading-normal pb-2">Memo (optional)</p>
-                        <textarea
-                        placeholder="Add memo"
-                        className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-white focus:outline-0 focus:ring-0 border border-[#3c4753] bg-[#1c2126] focus:border-[#3c4753] min-h-36 placeholder:text-[#9dabb8] p-[15px] text-base font-normal leading-normal"
-                        ></textarea>
-                    </label>
+                        <label className="flex flex-col min-w-40 flex-1">
+                            <p className="text-white text-base font-medium leading-normal pb-2">Amount (SOL)</p>
+                            <input
+                                placeholder="0.00"
+                                className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-white focus:outline-0 focus:ring-0 border border-[#3c4753] bg-[#1c2126] focus:border-[#3c4753] h-14 placeholder:text-[#9dabb8] p-[15px] text-base font-normal leading-normal"
+                                id="amount"
+                            />
+                        </label>
                     </div>
                     <h3 className="text-white text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">Transaction Summary</h3>
                     <div className="p-4">
@@ -70,6 +75,7 @@ const SendTokens = () => {
                     <div className="flex px-4 py-3 justify-end">
                     <button
                         className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-4 bg-[#1980e6] text-white text-sm font-bold leading-normal tracking-[0.015em]"
+                        onClick={sendTokens}
                     >
                         <span className="truncate">Send 1.01 SOL</span>
                     </button>
