@@ -2,11 +2,11 @@ import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 
 // Default styles that can be overridden by your app
 import '@solana/wallet-adapter-react-ui/styles.css';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
 
     return (
-        // https://solana-devnet.g.alchemy.com/v2/IR7u23Ytxfa-vBJZhy2fXkTnvxKGUPUa | https://api.devnet.solana.com
         <header className="bg-[#111418] dark flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#293038] px-10 py-3">
             <div className="flex items-center gap-4 text-white">
                 <div className="size-4">
@@ -16,7 +16,7 @@ const Header = () => {
             </div>
             <div className="flex flex-1 justify-end gap-8">
                 <div className="flex items-center gap-9">
-                <a className="text-white text-sm font-medium leading-normal" href="#">Wallet</a>
+                <Link className="text-white text-sm font-medium leading-normal" to="/request-airdrop">Request Airdrop</Link>
                 <a className="text-white text-sm font-medium leading-normal" href="#">Swap</a>
                 <a className="text-white text-sm font-medium leading-normal" href="#">Farm</a>
                 </div>
