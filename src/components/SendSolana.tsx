@@ -5,7 +5,6 @@ const SendTokens = () => {
     const wallet = useWallet();
     const { connection } = useConnection();
 
-
     async function sendTokens() {
         let to = (document.getElementById("to") as HTMLInputElement)!.value;
         let amount = (document.getElementById("amount") as HTMLInputElement)!.value
