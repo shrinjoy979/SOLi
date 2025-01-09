@@ -2,7 +2,8 @@ import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 
 // Default styles that can be overridden by your app
 import '@solana/wallet-adapter-react-ui/styles.css';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+import ShowBalance from './ShowBalance';
 
 const Header = () => {
 
@@ -16,9 +17,19 @@ const Header = () => {
             </div>
             <div className="flex flex-1 justify-end gap-8">
                 <div className="flex items-center gap-9">
-                <Link className="text-white text-sm font-medium leading-normal" to="/request-airdrop">Request Airdrop</Link>
+                <NavLink
+                    to="/request-airdrop"
+                    className={({ isActive }) => 
+                        `text-white text-sm font-medium leading-normal ${isActive ? "text-silver" : ""}`
+                    }
+                >
+                    Request Airdrop
+                </NavLink>
                 <a className="text-white text-sm font-medium leading-normal" href="#">Swap</a>
                 <a className="text-white text-sm font-medium leading-normal" href="#">Farm</a>
+                <a className="text-white text-sm font-medium leading-normal" href="#">
+                    <ShowBalance />
+                </a>
                 </div>
                     <button
                     className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-4 bg-[#1980e6] text-white text-sm font-bold leading-normal tracking-[0.015em]"

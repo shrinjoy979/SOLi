@@ -16,9 +16,9 @@ const SendSolana = () => {
                     <label className="flex flex-col min-w-40 flex-1">
                         <p className="text-white text-base font-medium leading-normal pb-2">Recipient's Address</p>
                         <input
-                        placeholder="Enter address"
-                        className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-white focus:outline-0 focus:ring-0 border border-[#3c4753] bg-[#1c2126] focus:border-[#3c4753] h-14 placeholder:text-[#9dabb8] p-[15px] text-base font-normal leading-normal"
-                        value=""
+                            placeholder="Enter address"
+                            className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-white focus:outline-0 focus:ring-0 border border-[#3c4753] bg-[#1c2126] focus:border-[#3c4753] h-14 placeholder:text-[#9dabb8] p-[15px] text-base font-normal leading-normal"
+                            value=""
                         />
                     </label>
                     </div>
