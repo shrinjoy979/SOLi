@@ -6,6 +6,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import MainLayout from './components/MainLayout';
 import Dashboard from './components/Dashboard';
 import { ToastContainer } from 'react-toastify';
+import SendTokens from './components/SendSolana';
+import SignatureMessage from './components/SignatureMessage';
 
 function App() {
 
@@ -20,6 +22,8 @@ function App() {
                     <Routes>
                       <Route path="/" element={<Dashboard />} />
                       <Route path="/request-airdrop" element={<RequestAirdrop />} />
+                      <Route path="/send-tokens" element={<SendTokens />} />
+                      <Route path="/sign-a-message" element={<SignatureMessage />} />
                     </Routes>
                   </MainLayout>
                 </Router>

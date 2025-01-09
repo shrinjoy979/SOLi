@@ -10,7 +10,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
   return (
     <div>
       <Header />
-        <main style={{ padding: '1rem' }}>
+        <main>
           {children}
         </main>
       <Footer />
