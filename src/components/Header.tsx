@@ -47,6 +47,15 @@ const Header = () => {
                         Sign Message
                     </NavLink>
 
+                    <NavLink
+                        to="/create-a-token"
+                        className={({ isActive }) => 
+                            `text-white text-sm font-medium leading-normal ${isActive ? "text-silver" : ""}`
+                        }
+                    >
+                        Create Token
+                    </NavLink>
+
                     <a className="text-white text-sm font-medium leading-normal" href="#">
                         <ShowBalance />
                     </a>
