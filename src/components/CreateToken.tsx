@@ -1,6 +1,6 @@
-import { ExtensionType, LENGTH_SIZE, TOKEN_2022_PROGRAM_ID, TYPE_SIZE, createInitializeMetadataPointerInstruction, createInitializeMintInstruction, getMintLen } from "@solana/spl-token";
+import { ExtensionType, LENGTH_SIZE, TOKEN_2022_PROGRAM_ID, TYPE_SIZE, createAssociatedTokenAccountInstruction, createInitializeMetadataPointerInstruction, createInitializeMintInstruction, createMintToInstruction, getAssociatedTokenAddressSync, getMintLen } from "@solana/spl-token";
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
-import { Keypair, SystemProgram, Transaction } from "@solana/web3.js";
+import { Keypair, LAMPORTS_PER_SOL, SystemProgram, Transaction } from "@solana/web3.js";
 import { createInitializeInstruction, pack } from '@solana/spl-token-metadata';
 import { useState } from "react";
 import { toast } from "react-toastify";
@@ -13,7 +13,8 @@ const CreateToken = () => {
     async function createToken() {
         const name = (document.getElementById("name") as HTMLInputElement)!.value;
         const symbol = (document.getElementById("symbol") as HTMLInputElement)!.value;
-        // const initialSupply = (document.getElementById("initialSupply") as HTMLInputElement)!.value;
+        const decimals = (document.getElementById("decimals") as HTMLInputElement)!.value
+        const supply = (document.getElementById("supply") as HTMLInputElement)!.value;
         // const imageURL = (document.getElementById("imageURL") as HTMLInputElement)!.value;
 
         const mintKeypair = Keypair.generate();
@@ -39,7 +40,7 @@ const CreateToken = () => {
                 programId: TOKEN_2022_PROGRAM_ID,
             }),
             createInitializeMetadataPointerInstruction(mintKeypair.publicKey, wallet.publicKey, mintKeypair.publicKey, TOKEN_2022_PROGRAM_ID),
-            createInitializeMintInstruction(mintKeypair.publicKey, 9, wallet.publicKey!, null, TOKEN_2022_PROGRAM_ID),
+            createInitializeMintInstruction(mintKeypair.publicKey, Number(decimals), wallet.publicKey!, null, TOKEN_2022_PROGRAM_ID),
             createInitializeInstruction({
                 programId: TOKEN_2022_PROGRAM_ID,
                 mint: mintKeypair.publicKey,
@@ -59,7 +60,39 @@ const CreateToken = () => {
         transaction.partialSign(mintKeypair);
         let response = await wallet.sendTransaction(transaction, connection);
         setSignature(response);
-        toast.success("Token created successfully.");
+
+        console.log(`Token mint created at ${mintKeypair.publicKey.toBase58()}`);
+        const associatedToken = getAssociatedTokenAddressSync(
+            mintKeypair.publicKey,
+            wallet.publicKey!,
+            false,
+            TOKEN_2022_PROGRAM_ID,
+        );
+
+        console.log(associatedToken.toBase58());
+
+        const transaction2 = new Transaction().add(
+            createAssociatedTokenAccountInstruction(
+                wallet.publicKey!,
+                associatedToken,
+                wallet.publicKey!,
+                mintKeypair.publicKey,
+                TOKEN_2022_PROGRAM_ID,
+            ),
+        );
+
+        await wallet.sendTransaction(transaction2, connection);
+
+        // Calculate total token supply
+        const tokenSupply = Number(supply) * Math.pow(10, Number(decimals));
+
+        const transaction3 = new Transaction().add(
+            createMintToInstruction(mintKeypair.publicKey, associatedToken, wallet.publicKey!, Number(tokenSupply), [], TOKEN_2022_PROGRAM_ID)
+        );
+
+        await wallet.sendTransaction(transaction3, connection);
+
+        toast.success("Token created and Minted successfully.");
     }
 
     return (
@@ -92,12 +125,22 @@ const CreateToken = () => {
                                 id="symbol"
                             />
                         </label>
+                    </div>
+                    <div className="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
                         <label className="flex flex-col min-w-40 flex-1">
-                            <p className="text-white text-base font-medium leading-normal pb-2">Initial Supply</p>
+                            <p className="text-white text-base font-medium leading-normal pb-2">Decimals</p>
                             <input
-                                placeholder="Initial Supply"
+                                placeholder="Decimals"
                                 className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-white focus:outline-0 focus:ring-0 border border-[#3c4753] bg-[#1c2126] focus:border-[#3c4753] h-14 placeholder:text-[#9dabb8] p-[15px] text-base font-normal leading-normal"
-                                id="initialSupply"
+                                id="decimals"
+                            />
+                        </label>
+                        <label className="flex flex-col min-w-40 flex-1">
+                            <p className="text-white text-base font-medium leading-normal pb-2">Supply</p>
+                            <input
+                                placeholder="Supply"
+                                className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-white focus:outline-0 focus:ring-0 border border-[#3c4753] bg-[#1c2126] focus:border-[#3c4753] h-14 placeholder:text-[#9dabb8] p-[15px] text-base font-normal leading-normal"
+                                id="supply"
                             />
                         </label>
                     </div>
