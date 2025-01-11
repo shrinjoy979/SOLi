@@ -10,12 +10,9 @@ const CreateToken = () => {
     const wallet = useWallet();
     const { connection } = useConnection();
     const [signature, setSignature] = useState<string | undefined>(undefined);
-    const [tokenMintAddress, setTokenMintAddress] = useState<string | undefined>(undefined);
 
     const [tokenImage, setTokenImage] = useState(null);
     const [loading, setLoading] = useState(false);
-    const [imageUrl, setImageUrl] = useState('');
-    const [jsonFileUrl, setJsonFileUrl] = useState('');
 
     const handleImageChange = (e: any) => {
         setTokenImage(e.target.files[0]);
@@ -40,15 +37,14 @@ const CreateToken = () => {
             // Upload image to Pinata
             const response = await axios.post('https://api.pinata.cloud/pinning/pinFileToIPFS', formData, {
                 headers: {
-                'Content-Type': 'multipart/form-data',
-                'pinata_api_key': '56beee8eaad7b6bb9d40',
-                'pinata_secret_api_key': '59468f96394c29587a3050cbdcc4e9ea4e9711b6adbe3444d492e15fb215f595',
+                    'Content-Type': 'multipart/form-data',
+                    'pinata_api_key': '56beee8eaad7b6bb9d40',
+                    'pinata_secret_api_key': '59468f96394c29587a3050cbdcc4e9ea4e9711b6adbe3444d492e15fb215f595',
                 },
             });
 
             const ipfsHash = response.data.IpfsHash;
             const ipfsUrl = `https://gateway.pinata.cloud/ipfs/${ipfsHash}`;
-            setImageUrl(ipfsUrl);
             
             // Now create a JSON object containing the image URL
             const jsonObject = {
@@ -76,19 +72,15 @@ const CreateToken = () => {
 
             const jsonFileHash = jsonResponse.data.IpfsHash;
             const metadataURL = `https://gateway.pinata.cloud/ipfs/${jsonFileHash}`;
-            setJsonFileUrl(metadataURL);
             createToken(metadataURL);
 
         } catch (error) {
             console.error('Error uploading image or JSON:', error);
             alert('Failed to upload image or JSON');
         }
-
-        setLoading(false);        
     };
 
     async function createToken(metadataURL: any) {
-        console.log('metadataURL', metadataURL);
         const name = (document.getElementById("name") as HTMLInputElement)!.value;
         const symbol = (document.getElementById("symbol") as HTMLInputElement)!.value;
         const decimals = (document.getElementById("decimals") as HTMLInputElement)!.value
@@ -137,7 +129,8 @@ const CreateToken = () => {
         transaction.partialSign(mintKeypair);
         let response = await wallet.sendTransaction(transaction, connection);
         setSignature(response);
-        setTokenMintAddress(mintKeypair.publicKey?.toBase58());
+        
+        // token mint address: mintKeypair.publicKey?.toBase58()
 
         const associatedToken = getAssociatedTokenAddressSync(
             mintKeypair.publicKey,
@@ -169,6 +162,7 @@ const CreateToken = () => {
 
         await wallet.sendTransaction(transaction3, connection);
 
+        setLoading(false);
         toast.success("Token created and Minted successfully.");
     }
 
@@ -243,9 +237,6 @@ const CreateToken = () => {
                         </div>
 
                         <p className="text-white px-4">{signature ? `Signature: ${signature}` : null}</p>
-                        <p className="text-white px-4">{tokenMintAddress ? `Token Mint Address: ${tokenMintAddress}` : null}</p>
-                        <p className="text-white px-4">{jsonFileUrl ? `JSON File URL: ${jsonFileUrl}` : null}</p>
-                        <p className="text-white px-4">{imageUrl ? `Image URL: ${imageUrl}` : null}</p>
 
                         <div className="flex px-4 py-3 justify-end">
                             <button
