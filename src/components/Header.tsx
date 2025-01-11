@@ -60,16 +60,7 @@ const Header = () => {
                         <ShowBalance />
                     </a>
                 </div>
-                    <button
-                    className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-4 bg-[#1980e6] text-white text-sm font-bold leading-normal tracking-[0.015em]"
-                    >
-                        <span className="truncate">Connect</span>
-                    </button>
-                    <WalletMultiButton></WalletMultiButton>
-                <div
-                className="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10"
-                style={{ backgroundImage: `url("https://cdn.usegalileo.ai/sdxl10/9cfd5aa2-e7b1-4377-8c7c-54ef1dc85357.png")` }}
-                ></div>
+                <WalletMultiButton></WalletMultiButton>
             </div>
         </header>
     )
