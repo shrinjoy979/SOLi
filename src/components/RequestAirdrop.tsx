@@ -25,7 +25,7 @@ const RequestAirdrop = () => {
                         <h1 className="text-white text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 text-left pb-3 pt-5">Request Airdrop</h1>
                         {wallet.publicKey ?
                             <p className="text-white px-4">
-                                Public Address: {wallet.publicKey?.toBase58()}<br/><br/> {/* solana address is 58 bit */}
+                                Public Address: {wallet.publicKey ? wallet.publicKey?.toBase58() : "Not Available"}<br/><br/> {/* solana address is 58 bit */}
                             </p>
                         : null }
                         <div className="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
