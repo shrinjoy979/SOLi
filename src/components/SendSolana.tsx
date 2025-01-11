@@ -1,14 +1,22 @@
-import { useConnection, useWallet } from "@solana/wallet-adapter-react"
+import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import { LAMPORTS_PER_SOL, PublicKey, SystemProgram, Transaction } from "@solana/web3.js";
+import { useState } from "react";
 
 const SendTokens = () => {
+    const [to, setTo] = useState("");
+    const [amount, setAmount] = useState("");
     const wallet = useWallet();
     const { connection } = useConnection();
 
-    async function sendTokens() {
-        let to = (document.getElementById("to") as HTMLInputElement)!.value;
-        let amount = (document.getElementById("amount") as HTMLInputElement)!.value
+    const handleInputAmountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setAmount(event.target.value);
+    };
 
+    const handleInputAddressChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setTo(event.target.value);
+    };
+
+    async function sendTokens() {
         const transaction = new Transaction();
         transaction.add(SystemProgram.transfer({
             fromPubkey: wallet.publicKey!,
@@ -39,6 +47,7 @@ const SendTokens = () => {
                             placeholder="Enter address"
                             className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-white focus:outline-0 focus:ring-0 border border-[#3c4753] bg-[#1c2126] focus:border-[#3c4753] h-14 placeholder:text-[#9dabb8] p-[15px] text-base font-normal leading-normal"
                             id="to"
+                            onChange={handleInputAddressChange}
                         />
                     </label>
                     </div>
@@ -49,35 +58,22 @@ const SendTokens = () => {
                                 placeholder="0.00"
                                 className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-white focus:outline-0 focus:ring-0 border border-[#3c4753] bg-[#1c2126] focus:border-[#3c4753] h-14 placeholder:text-[#9dabb8] p-[15px] text-base font-normal leading-normal"
                                 id="amount"
+                                onChange={handleInputAmountChange}
                             />
                         </label>
                     </div>
-                    <h3 className="text-white text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">Transaction Summary</h3>
-                    <div className="p-4">
-                    <div className="flex justify-between gap-x-6 py-2">
-                        <p className="text-[#9dabb8] text-sm font-normal leading-normal">Recipient</p>
-                        <p className="text-white text-sm font-normal leading-normal text-right">Binance</p>
-                    </div>
-                    <div className="flex justify-between gap-x-6 py-2">
-                        <p className="text-[#9dabb8] text-sm font-normal leading-normal">Amount</p>
-                        <p className="text-white text-sm font-normal leading-normal text-right">1.0000 SOL</p>
-                    </div>
-                    <div className="flex justify-between gap-x-6 py-2">
-                        <p className="text-[#9dabb8] text-sm font-normal leading-normal">Network Fee</p>
-                        <p className="text-white text-sm font-normal leading-normal text-right">$0.01</p>
-                    </div>
-                    <div className="flex justify-between gap-x-6 py-2">
-                        <p className="text-[#9dabb8] text-sm font-normal leading-normal">Total</p>
-                        <p className="text-white text-sm font-normal leading-normal text-right">1.0100 SOL</p>
-                    </div>
-                    </div>
                     <div className="flex px-4 py-3 justify-end">
-                    <button
-                        className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-4 bg-[#1980e6] text-white text-sm font-bold leading-normal tracking-[0.015em]"
-                        onClick={sendTokens}
-                    >
-                        <span className="truncate">Send 1.01 SOL</span>
-                    </button>
+                        <button
+                            className={`flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-4 bg-[#1980e6] text-white text-sm font-bold leading-normal tracking-[0.015em] ${
+                                amount && to
+                                ? "bg-[#1980e6] text-white cursor-pointer"
+                                : "bg-gray-400 text-gray-700 cursor-not-allowed"
+                            }`}
+                            onClick={sendTokens}
+                            disabled={!amount && !to}
+                        >
+                            <span className="truncate">Send {amount} SOL</span>
+                        </button>
                     </div>
                 </div>
                 </div>

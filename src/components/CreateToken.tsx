@@ -5,6 +5,7 @@ import { createInitializeInstruction, pack } from '@solana/spl-token-metadata';
 import { useState } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
+import SelectWallet from "./SelectWallet";
 
 const CreateToken = () => {
     const wallet = useWallet();
@@ -187,135 +188,139 @@ const CreateToken = () => {
         <div className="relative flex size-full min-h-screen flex-col bg-[#111418] dark group/design-root overflow-x-hidden" style={{ fontFamily: `"Work Sans", "Noto Sans", sans-serif` }}>
             <div className="layout-container flex h-full grow flex-col">
                 <div className="px-40 flex flex-1 justify-center py-5">
-                    <div className="layout-content-container flex flex-col w-[512px] max-w-[512px] py-5 max-w-[960px] flex-1">
-                        <div className="flex flex-wrap justify-between gap-3 p-4">
-                            <div className="flex min-w-72 flex-col gap-3">
-                                <p className="text-white tracking-light text-[32px] font-bold leading-tight">Create Token</p>
+                    {wallet.publicKey ? 
+                        <div className="layout-content-container flex flex-col w-[512px] max-w-[512px] py-5 max-w-[960px] flex-1">
+                            <div className="flex flex-wrap justify-between gap-3 p-4">
+                                <div className="flex min-w-72 flex-col gap-3">
+                                    <p className="text-white tracking-light text-[32px] font-bold leading-tight">Create Token</p>
+                                </div>
+                            </div>
+    
+                            <div className="flex flex-wrap items-end gap-4 px-4 py-3">
+                                <label className="flex flex-col min-w-40 flex-1">
+                                    <p className="text-white text-base font-medium leading-normal pb-2">Name</p>
+                                    <input
+                                        placeholder="Name"
+                                        className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-white focus:outline-0 focus:ring-0 border border-[#3c4753] bg-[#1c2126] focus:border-[#3c4753] h-14 placeholder:text-[#9dabb8] p-[15px] text-base font-normal leading-normal"
+                                        id="name"
+                                    />
+                                </label>
+    
+                                <label className="flex flex-col min-w-40 flex-1">
+                                    <p className="text-white text-base font-medium leading-normal pb-2">Symbol</p>
+                                    <input
+                                        placeholder="Symbol"
+                                        className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-white focus:outline-0 focus:ring-0 border border-[#3c4753] bg-[#1c2126] focus:border-[#3c4753] h-14 placeholder:text-[#9dabb8] p-[15px] text-base font-normal leading-normal"
+                                        id="symbol"
+                                    />
+                                </label>
+                            </div>
+    
+                            <div className="flex flex-wrap items-end gap-4 px-4 py-3">
+                                <label className="flex flex-col min-w-40 flex-1">
+                                    <p className="text-white text-base font-medium leading-normal pb-2">Decimals</p>
+                                    <input
+                                        placeholder="Decimals"
+                                        className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-white focus:outline-0 focus:ring-0 border border-[#3c4753] bg-[#1c2126] focus:border-[#3c4753] h-14 placeholder:text-[#9dabb8] p-[15px] text-base font-normal leading-normal"
+                                        id="decimals"
+                                    />
+                                </label>
+    
+                                <label className="flex flex-col min-w-40 flex-1">
+                                    <p className="text-white text-base font-medium leading-normal pb-2">Supply</p>
+                                    <input
+                                        placeholder="Supply"
+                                        className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-white focus:outline-0 focus:ring-0 border border-[#3c4753] bg-[#1c2126] focus:border-[#3c4753] h-14 placeholder:text-[#9dabb8] p-[15px] text-base font-normal leading-normal"
+                                        id="supply"
+                                    />
+                                </label>
+                            </div>
+    
+                            <div className="flex flex-col p-4">
+                                <p className="text-white text-base font-medium leading-normal pb-2">Image</p>
+                                <div className="flex flex-col items-center gap-6 rounded-xl border-2 border-dashed border-[#344d65] px-6 py-14">
+                                    <input type="file" onChange={handleImageChange} className="flex cursor-pointer items-center justify-center overflow-hidden rounded-xl px-4 bg-[#243647] text-white text-sm font-bold leading-normal tracking-[0.015em] py-2"/>
+                                </div>
+                            </div>
+    
+                            <div className="flex flex-wrap items-end gap-4 px-4 py-3">
+                                <label className="flex flex-col min-w-40 flex-1">
+                                    <p className="text-white text-base font-medium leading-normal pb-2">Description</p>
+                                    <textarea
+                                        placeholder="Description"
+                                        className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-white focus:outline-0 focus:ring-0 border border-[#3c4753] bg-[#1c2126] focus:border-[#3c4753] h-14 placeholder:text-[#9dabb8] p-[15px] text-base font-normal leading-normal"
+                                        id="description"
+                                        rows={5}
+                                    />
+                                </label> 
+                            </div>
+    
+                            <p className="text-white px-4">{signature ? `Signature: ${signature}` : null}</p>
+    
+                            <h5 className="text-white tracking-light text-[26px] font-bold leading-tight p-4">Revoke Authorities</h5>
+    
+                            <div className="m-4" style={{
+                                display: "flex",
+                                gap: "20px",
+                                padding: "15px",
+                                backgroundColor: "#f9f9f9",
+                                borderRadius: "8px",
+                                border: "1px solid #ddd",
+                            }}>
+                                <label style={{
+                                    display: "flex",
+                                    alignItems: "center",
+                                    gap: "10px",
+                                    fontSize: "17px",
+                                    fontWeight: "500",
+                                    color: "#333",
+                                    cursor: 'pointer'
+                                }}>
+                                    <input type="checkbox" id="revokeMintAuthority" /> Mint Authority
+                                </label>
+    
+                                <label style={{
+                                    display: "flex",
+                                    alignItems: "center",
+                                    gap: "10px",
+                                    fontSize: "17px",
+                                    fontWeight: "500",
+                                    color: "#333",
+                                    cursor: 'pointer'
+                                }}>
+                                    <input type="checkbox" id="revokeFreezeAuthority" /> Freeze Authority
+                                </label>
+    
+                                <label style={{
+                                    display: "flex",
+                                    alignItems: "center",
+                                    gap: "10px",
+                                    fontSize: "17px",
+                                    fontWeight: "500",
+                                    color: "#333",
+                                    cursor: 'pointer'
+                                }}>
+                                    <input type="checkbox" id="revokeUpdateAuthority" /> Update Authority
+                                </label>
+                            </div>
+    
+                            <div className="flex px-4 py-3 justify-end">
+                                <button
+                                    className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-4 bg-[#1980e6] text-white text-sm font-bold leading-normal tracking-[0.015em]"
+                                    disabled={loading}
+                                    onClick={handleImageUpload}
+                                >
+                                    <span className="truncate">{loading ? 'Please wait...' : 'Create Token'}</span>
+                                </button>
                             </div>
                         </div>
-
-                        <div className="flex flex-wrap items-end gap-4 px-4 py-3">
-                            <label className="flex flex-col min-w-40 flex-1">
-                                <p className="text-white text-base font-medium leading-normal pb-2">Name</p>
-                                <input
-                                    placeholder="Name"
-                                    className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-white focus:outline-0 focus:ring-0 border border-[#3c4753] bg-[#1c2126] focus:border-[#3c4753] h-14 placeholder:text-[#9dabb8] p-[15px] text-base font-normal leading-normal"
-                                    id="name"
-                                />
-                            </label>
-
-                            <label className="flex flex-col min-w-40 flex-1">
-                                <p className="text-white text-base font-medium leading-normal pb-2">Symbol</p>
-                                <input
-                                    placeholder="Symbol"
-                                    className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-white focus:outline-0 focus:ring-0 border border-[#3c4753] bg-[#1c2126] focus:border-[#3c4753] h-14 placeholder:text-[#9dabb8] p-[15px] text-base font-normal leading-normal"
-                                    id="symbol"
-                                />
-                            </label>
-                        </div>
-
-                        <div className="flex flex-wrap items-end gap-4 px-4 py-3">
-                            <label className="flex flex-col min-w-40 flex-1">
-                                <p className="text-white text-base font-medium leading-normal pb-2">Decimals</p>
-                                <input
-                                    placeholder="Decimals"
-                                    className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-white focus:outline-0 focus:ring-0 border border-[#3c4753] bg-[#1c2126] focus:border-[#3c4753] h-14 placeholder:text-[#9dabb8] p-[15px] text-base font-normal leading-normal"
-                                    id="decimals"
-                                />
-                            </label>
-
-                            <label className="flex flex-col min-w-40 flex-1">
-                                <p className="text-white text-base font-medium leading-normal pb-2">Supply</p>
-                                <input
-                                    placeholder="Supply"
-                                    className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-white focus:outline-0 focus:ring-0 border border-[#3c4753] bg-[#1c2126] focus:border-[#3c4753] h-14 placeholder:text-[#9dabb8] p-[15px] text-base font-normal leading-normal"
-                                    id="supply"
-                                />
-                            </label>
-                        </div>
-
-                        <div className="flex flex-col p-4">
-                            <p className="text-white text-base font-medium leading-normal pb-2">Image</p>
-                            <div className="flex flex-col items-center gap-6 rounded-xl border-2 border-dashed border-[#344d65] px-6 py-14">
-                                <input type="file" onChange={handleImageChange} className="flex cursor-pointer items-center justify-center overflow-hidden rounded-xl px-4 bg-[#243647] text-white text-sm font-bold leading-normal tracking-[0.015em] py-2"/>
-                            </div>
-                        </div>
-
-                        <div className="flex flex-wrap items-end gap-4 px-4 py-3">
-                            <label className="flex flex-col min-w-40 flex-1">
-                                <p className="text-white text-base font-medium leading-normal pb-2">Description</p>
-                                <textarea
-                                    placeholder="Description"
-                                    className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-white focus:outline-0 focus:ring-0 border border-[#3c4753] bg-[#1c2126] focus:border-[#3c4753] h-14 placeholder:text-[#9dabb8] p-[15px] text-base font-normal leading-normal"
-                                    id="description"
-                                    rows={5}
-                                />
-                            </label> 
-                        </div>
-
-                        <p className="text-white px-4">{signature ? `Signature: ${signature}` : null}</p>
-
-                        <h5 className="text-white tracking-light text-[26px] font-bold leading-tight p-4">Revoke Authorities</h5>
-
-                        <div className="m-4" style={{
-                            display: "flex",
-                            gap: "20px",
-                            padding: "15px",
-                            backgroundColor: "#f9f9f9",
-                            borderRadius: "8px",
-                            border: "1px solid #ddd",
-                        }}>
-                            <label style={{
-                                display: "flex",
-                                alignItems: "center",
-                                gap: "10px",
-                                fontSize: "17px",
-                                fontWeight: "500",
-                                color: "#333",
-                                cursor: 'pointer'
-                            }}>
-                                <input type="checkbox" id="revokeMintAuthority" /> Mint Authority
-                            </label>
-
-                            <label style={{
-                                display: "flex",
-                                alignItems: "center",
-                                gap: "10px",
-                                fontSize: "17px",
-                                fontWeight: "500",
-                                color: "#333",
-                                cursor: 'pointer'
-                            }}>
-                                <input type="checkbox" id="revokeFreezeAuthority" /> Freeze Authority
-                            </label>
-
-                            <label style={{
-                                display: "flex",
-                                alignItems: "center",
-                                gap: "10px",
-                                fontSize: "17px",
-                                fontWeight: "500",
-                                color: "#333",
-                                cursor: 'pointer'
-                            }}>
-                                <input type="checkbox" id="revokeUpdateAuthority" /> Update Authority
-                            </label>
-                        </div>
-
-                        <div className="flex px-4 py-3 justify-end">
-                            <button
-                                className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-4 bg-[#1980e6] text-white text-sm font-bold leading-normal tracking-[0.015em]"
-                                disabled={loading}
-                                onClick={handleImageUpload}
-                            >
-                                <span className="truncate">{loading ? 'Please wait...' : 'Create Token'}</span>
-                            </button>
-                        </div>
-                    </div>
+                    :
+                        <SelectWallet />
+                    }
                 </div>
             </div>
-        </div>
+        </div>  
     )
 }
 
-export default CreateToken
+export default CreateToken;
