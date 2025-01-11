@@ -86,6 +86,10 @@ const CreateToken = () => {
         const decimals = (document.getElementById("decimals") as HTMLInputElement)!.value
         const supply = (document.getElementById("supply") as HTMLInputElement)!.value;
 
+        // const revokeMintAuthority = (document.getElementById("revokeMintAuthority") as HTMLInputElement)!.checked;
+        // const revokeFreezeAuthority = (document.getElementById("revokeFreezeAuthority") as HTMLInputElement)!.checked;
+        // const revokeUpdateAuthority = (document.getElementById("revokeUpdateAuthority") as HTMLInputElement)?.checked;
+
         const mintKeypair = Keypair.generate();
         const metadata = {
             mint: mintKeypair.publicKey,
@@ -121,6 +125,19 @@ const CreateToken = () => {
                 updateAuthority: wallet.publicKey!,
             }),
         );
+
+        // Add revoke instructions if necessary
+        // if (revokeFreezeAuthority) {
+        //     transaction.add(await createRevokeAuthorityInstruction(mintKeypair.publicKey, 'freeze', wallet.publicKey!));
+        // }
+
+        // if (revokeMintAuthority) {
+        //     transaction.add(await createRevokeAuthorityInstruction(mintKeypair.publicKey, 'mint', wallet.publicKey!));
+        // }
+
+        // if (revokeUpdateAuthority) {
+        //     transaction.add(await createRevokeAuthorityInstruction(mintKeypair.publicKey, 'update', wallet.publicKey!));
+        // }
 
         const recentBlockhash = await connection.getLatestBlockhash();
         transaction.recentBlockhash = recentBlockhash.blockhash;
@@ -237,6 +254,53 @@ const CreateToken = () => {
                         </div>
 
                         <p className="text-white px-4">{signature ? `Signature: ${signature}` : null}</p>
+
+                        <h5 className="text-white tracking-light text-[26px] font-bold leading-tight p-4">Revoke Authorities</h5>
+
+                        <div className="m-4" style={{
+                            display: "flex",
+                            gap: "20px",
+                            padding: "15px",
+                            backgroundColor: "#f9f9f9",
+                            borderRadius: "8px",
+                            border: "1px solid #ddd",
+                        }}>
+                            <label style={{
+                                display: "flex",
+                                alignItems: "center",
+                                gap: "10px",
+                                fontSize: "17px",
+                                fontWeight: "500",
+                                color: "#333",
+                                cursor: 'pointer'
+                            }}>
+                                <input type="checkbox" id="revokeMintAuthority" /> Mint Authority
+                            </label>
+
+                            <label style={{
+                                display: "flex",
+                                alignItems: "center",
+                                gap: "10px",
+                                fontSize: "17px",
+                                fontWeight: "500",
+                                color: "#333",
+                                cursor: 'pointer'
+                            }}>
+                                <input type="checkbox" id="revokeFreezeAuthority" /> Freeze Authority
+                            </label>
+
+                            <label style={{
+                                display: "flex",
+                                alignItems: "center",
+                                gap: "10px",
+                                fontSize: "17px",
+                                fontWeight: "500",
+                                color: "#333",
+                                cursor: 'pointer'
+                            }}>
+                                <input type="checkbox" id="revokeUpdateAuthority" /> Update Authority
+                            </label>
+                        </div>
 
                         <div className="flex px-4 py-3 justify-end">
                             <button
