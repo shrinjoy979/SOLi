@@ -1,3 +1,4 @@
+import Pinata from "./Pinata"
 import Transactions from "./Transactions"
 
 const Dashboard = () => {
@@ -158,7 +159,7 @@ const Dashboard = () => {
                   <div className="flex items-center gap-2"><p className="text-[#9dabb8] text-sm font-normal leading-normal">In Stakes</p></div>
                 </div>
               </div>
-
+              <Pinata />
               <Transactions />              
 
             </div>
