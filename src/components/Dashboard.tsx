@@ -1,6 +1,7 @@
 import { useWallet } from "@solana/wallet-adapter-react";
 import Transactions from "./Transactions";
 import SelectWallet from "./SelectWallet";
+import { NavLink } from "react-router-dom";
 
 const Dashboard = () => {
   const wallet = useWallet();
@@ -15,7 +16,13 @@ const Dashboard = () => {
                   <div className="flex h-full min-h-[700px] flex-col justify-between bg-[#111418] p-4">
                     <div className="flex flex-col gap-4">
                       <div className="flex flex-col gap-2">
-                        <div className="flex items-center gap-3 px-3 py-2 rounded-full bg-[#293038]">
+
+                        <NavLink
+                          to="/"
+                          className={({ isActive }) => 
+                            `flex items-center gap-3 px-3 py-2 ${isActive ? "rounded-full bg-[#293038]" : ""}`
+                          }
+                        >
                           <div className="text-white" data-icon="ChartBar" data-size="24px" data-weight="fill">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
                               <path
@@ -24,9 +31,14 @@ const Dashboard = () => {
                             </svg>
                           </div>
                           <p className="text-white text-sm font-medium leading-normal">Overview</p>
-                        </div>
+                        </NavLink>
 
-                        <div className="flex items-center gap-3 px-3 py-2">
+                        <NavLink
+                          to="/request-airdrop"
+                          className={({ isActive }) => 
+                            `flex items-center gap-3 px-3 py-2 ${isActive ? "rounded-full bg-[#293038]" : ""}`
+                          }
+                        >
                           <div className="text-white" data-icon="List" data-size="24px" data-weight="regular">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
                               <path
@@ -34,10 +46,15 @@ const Dashboard = () => {
                               ></path>
                             </svg>
                           </div>
-                          <p className="text-white text-sm font-medium leading-normal">Activity</p>
-                        </div>
+                          <p className="text-white text-sm font-medium leading-normal">Request Airdrop</p>
+                        </NavLink>
 
-                        <div className="flex items-center gap-3 px-3 py-2">
+                        <NavLink
+                          to="/send-tokens"
+                          className={({ isActive }) => 
+                            `flex items-center gap-3 px-3 py-2 ${isActive ? "rounded-full bg-[#293038]" : ""}`
+                          }
+                        >
                           <div className="text-white" data-icon="ArrowUp" data-size="24px" data-weight="regular">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
                               <path
@@ -45,10 +62,15 @@ const Dashboard = () => {
                               ></path>
                             </svg>
                           </div>
-                          <p className="text-white text-sm font-medium leading-normal">Send</p>
-                        </div>
+                          <p className="text-white text-sm font-medium leading-normal">Send Tokens</p>
+                        </NavLink>
 
-                        <div className="flex items-center gap-3 px-3 py-2">
+                        <NavLink
+                          to="/sign-a-message"
+                          className={({ isActive }) => 
+                            `flex items-center gap-3 px-3 py-2 ${isActive ? "rounded-full bg-[#293038]" : ""}`
+                          }
+                        >
                           <div className="text-white" data-icon="ArrowDown" data-size="24px" data-weight="regular">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
                               <path
@@ -56,10 +78,15 @@ const Dashboard = () => {
                               ></path>
                             </svg>
                           </div>
-                          <p className="text-white text-sm font-medium leading-normal">Receive</p>
-                        </div>
+                          <p className="text-white text-sm font-medium leading-normal">Sign Message</p>
+                        </NavLink>
 
-                        <div className="flex items-center gap-3 px-3 py-2">
+                        <NavLink
+                          to="/create-a-token"
+                          className={({ isActive }) => 
+                            `flex items-center gap-3 px-3 py-2 ${isActive ? "rounded-full bg-[#293038]" : ""}`
+                          }
+                        >
                           <div className="text-white" data-icon="ArrowCircleUp" data-size="24px" data-weight="regular">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
                               <path
@@ -67,30 +94,9 @@ const Dashboard = () => {
                               ></path>
                             </svg>
                           </div>
-                          <p className="text-white text-sm font-medium leading-normal">Stake</p>
-                        </div>
+                          <p className="text-white text-sm font-medium leading-normal">Create Token</p>
+                        </NavLink>
 
-                        <div className="flex items-center gap-3 px-3 py-2">
-                          <div className="text-white" data-icon="Repeat" data-size="24px" data-weight="regular">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
-                              <path
-                                d="M24,128A72.08,72.08,0,0,1,96,56H204.69L194.34,45.66a8,8,0,0,1,11.32-11.32l24,24a8,8,0,0,1,0,11.32l-24,24a8,8,0,0,1-11.32-11.32L204.69,72H96a56.06,56.06,0,0,0-56,56,8,8,0,0,1-16,0Zm200-8a8,8,0,0,0-8,8,56.06,56.06,0,0,1-56,56H51.31l10.35-10.34a8,8,0,0,0-11.32-11.32l-24,24a8,8,0,0,0,0,11.32l24,24a8,8,0,0,0,11.32-11.32L51.31,200H160a72.08,72.08,0,0,0,72-72A8,8,0,0,0,224,120Z"
-                              ></path>
-                            </svg>
-                          </div>
-                          <p className="text-white text-sm font-medium leading-normal">Swap</p>
-                        </div>
-
-                        <div className="flex items-center gap-3 px-3 py-2">
-                          <div className="text-white" data-icon="CheckCircle" data-size="24px" data-weight="regular">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
-                              <path
-                                d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"
-                              ></path>
-                            </svg>
-                          </div>
-                          <p className="text-white text-sm font-medium leading-normal">Governance</p>
-                        </div>
                       </div>
                     </div>
                   </div>
