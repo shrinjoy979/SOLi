@@ -1,4 +1,3 @@
-import Pinata from "./Pinata"
 import Transactions from "./Transactions"
 
 const Dashboard = () => {
@@ -6,6 +5,7 @@ const Dashboard = () => {
     <div className="relative flex size-full min-h-screen flex-col bg-[#111418] dark group/design-root overflow-x-hidden" style={{ fontFamily: `"Work Sans", "Noto Sans", sans-serif` }}>
         <div className="layout-container flex h-full grow flex-col">
           <div className="gap-1 px-6 flex flex-1 justify-center py-5">
+
             <div className="layout-content-container flex flex-col w-80">
               <div className="flex h-full min-h-[700px] flex-col justify-between bg-[#111418] p-4">
                 <div className="flex flex-col gap-4">
@@ -20,6 +20,7 @@ const Dashboard = () => {
                       </div>
                       <p className="text-white text-sm font-medium leading-normal">Overview</p>
                     </div>
+
                     <div className="flex items-center gap-3 px-3 py-2">
                       <div className="text-white" data-icon="List" data-size="24px" data-weight="regular">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
@@ -30,6 +31,7 @@ const Dashboard = () => {
                       </div>
                       <p className="text-white text-sm font-medium leading-normal">Activity</p>
                     </div>
+
                     <div className="flex items-center gap-3 px-3 py-2">
                       <div className="text-white" data-icon="ArrowUp" data-size="24px" data-weight="regular">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
@@ -40,6 +42,7 @@ const Dashboard = () => {
                       </div>
                       <p className="text-white text-sm font-medium leading-normal">Send</p>
                     </div>
+
                     <div className="flex items-center gap-3 px-3 py-2">
                       <div className="text-white" data-icon="ArrowDown" data-size="24px" data-weight="regular">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
@@ -50,6 +53,7 @@ const Dashboard = () => {
                       </div>
                       <p className="text-white text-sm font-medium leading-normal">Receive</p>
                     </div>
+
                     <div className="flex items-center gap-3 px-3 py-2">
                       <div className="text-white" data-icon="ArrowCircleUp" data-size="24px" data-weight="regular">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
@@ -60,6 +64,7 @@ const Dashboard = () => {
                       </div>
                       <p className="text-white text-sm font-medium leading-normal">Stake</p>
                     </div>
+
                     <div className="flex items-center gap-3 px-3 py-2">
                       <div className="text-white" data-icon="Repeat" data-size="24px" data-weight="regular">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
@@ -70,6 +75,7 @@ const Dashboard = () => {
                       </div>
                       <p className="text-white text-sm font-medium leading-normal">Swap</p>
                     </div>
+                    
                     <div className="flex items-center gap-3 px-3 py-2">
                       <div className="text-white" data-icon="CheckCircle" data-size="24px" data-weight="regular">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
@@ -82,87 +88,10 @@ const Dashboard = () => {
                     </div>
                   </div>
                 </div>
-                <button
-                  className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-4 bg-[#1980e6] text-white text-sm font-bold leading-normal tracking-[0.015em]"
-                >
-                  <span className="truncate">Send</span>
-                </button>
-              </div>
-              <div className="flex items-center gap-4 bg-[#111418] px-4 min-h-[72px] py-2">
-                <div
-                  className="bg-center bg-no-repeat aspect-square bg-cover rounded-lg size-14"
-                  style={{ backgroundImage: `url("https://cdn.usegalileo.ai/sdxl10/9d73b9a7-8829-49b9-ad16-e537a0475800.png")` }}
-                ></div>
-                <div className="flex flex-col justify-center">
-                  <p className="text-white text-base font-medium leading-normal line-clamp-1">SOL</p>
-                  <p className="text-[#9dabb8] text-sm font-normal leading-normal line-clamp-2">0.00</p>
-                </div>
-              </div>
-              <div className="flex items-center gap-4 bg-[#111418] px-4 min-h-[72px] py-2">
-                <div
-                  className="bg-center bg-no-repeat aspect-square bg-cover rounded-lg size-14"
-                  style={{ backgroundImage: `url("https://cdn.usegalileo.ai/sdxl10/380f9ee0-8317-433d-8a5c-61241d1dc0ff.png")` }}
-                ></div>
-                <div className="flex flex-col justify-center">
-                  <p className="text-white text-base font-medium leading-normal line-clamp-1">USDC</p>
-                  <p className="text-[#9dabb8] text-sm font-normal leading-normal line-clamp-2">0.00</p>
-                </div>
-              </div>
-              <div className="flex items-center gap-4 bg-[#111418] px-4 min-h-[72px] py-2">
-                <div
-                  className="bg-center bg-no-repeat aspect-square bg-cover rounded-lg size-14"
-                  style={{ backgroundImage: `url("https://cdn.usegalileo.ai/sdxl10/90a74da5-925c-4c7b-b155-d0e14b94dd87.png")` }}
-                ></div>
-                <div className="flex flex-col justify-center">
-                  <p className="text-white text-base font-medium leading-normal line-clamp-1">USDT</p>
-                  <p className="text-[#9dabb8] text-sm font-normal leading-normal line-clamp-2">0.00</p>
-                </div>
-              </div>
-              <div className="flex items-center gap-4 bg-[#111418] px-4 min-h-[72px] py-2">
-                <div
-                  className="bg-center bg-no-repeat aspect-square bg-cover rounded-lg size-14"
-                  style={{ backgroundImage: `url("https://cdn.usegalileo.ai/sdxl10/907070f9-1e3d-4edf-8010-a259973c114e.png")` }}
-                ></div>
-                <div className="flex flex-col justify-center">
-                  <p className="text-white text-base font-medium leading-normal line-clamp-1">BTC</p>
-                  <p className="text-[#9dabb8] text-sm font-normal leading-normal line-clamp-2">0.00</p>
-                </div>
-              </div>
-              <div className="flex items-center gap-4 bg-[#111418] px-4 min-h-[72px] py-2">
-                <div
-                  className="bg-center bg-no-repeat aspect-square bg-cover rounded-lg size-14"
-                  style={{ backgroundImage: `url("https://cdn.usegalileo.ai/sdxl10/79f1aded-b497-4db7-84d8-b5dbd2d3b99b.png")` }}
-                ></div>
-                <div className="flex flex-col justify-center">
-                  <p className="text-white text-base font-medium leading-normal line-clamp-1">ETH</p>
-                  <p className="text-[#9dabb8] text-sm font-normal leading-normal line-clamp-2">0.00</p>
-                </div>
               </div>
             </div>
-            <div className="layout-content-container flex flex-col max-w-[960px] flex-1">
-              <div className="flex flex-wrap justify-between gap-3 p-4"><p className="text-white tracking-light text-[32px] font-bold leading-tight min-w-72">Wallet</p></div>
-              <div className="flex flex-wrap gap-3 px-4 py-3">
-                <div className="flex min-w-[111px] flex-1 basis-[fit-content] flex-col gap-2 rounded-lg border border-[#3c4753] p-3 items-center text-center">
-                  <p className="text-white tracking-light text-2xl font-bold leading-tight">$0.00</p>
-                  <div className="flex items-center gap-2"><p className="text-[#9dabb8] text-sm font-normal leading-normal">Total Balance</p></div>
-                </div>
-                <div className="flex min-w-[111px] flex-1 basis-[fit-content] flex-col gap-2 rounded-lg border border-[#3c4753] p-3 items-center text-center">
-                  <p className="text-white tracking-light text-2xl font-bold leading-tight">0.00</p>
-                  <div className="flex items-center gap-2"><p className="text-[#9dabb8] text-sm font-normal leading-normal">Available Balance</p></div>
-                </div>
-                <div className="flex min-w-[111px] flex-1 basis-[fit-content] flex-col gap-2 rounded-lg border border-[#3c4753] p-3 items-center text-center">
-                  <p className="text-white tracking-light text-2xl font-bold leading-tight">0.00</p>
-                  <div className="flex items-center gap-2"><p className="text-[#9dabb8] text-sm font-normal leading-normal">In Orders</p></div>
-                </div>
-                <div className="flex min-w-[111px] flex-1 basis-[fit-content] flex-col gap-2 rounded-lg border border-[#3c4753] p-3 items-center text-center">
-                  <p className="text-white tracking-light text-2xl font-bold leading-tight">0.00</p>
-                  <div className="flex items-center gap-2"><p className="text-[#9dabb8] text-sm font-normal leading-normal">In Stakes</p></div>
-                </div>
-              </div>
-              <Pinata />
-              <Transactions />              
 
-            </div>
+            <Transactions />
           </div>
         </div>
     </div>
