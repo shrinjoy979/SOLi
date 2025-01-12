@@ -72,10 +72,11 @@ const Dashboard = () => {
                           }
                         >
                           <div className="text-white" data-icon="ArrowDown" data-size="24px" data-weight="regular">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
-                              <path
-                                d="M205.66,149.66l-72,72a8,8,0,0,1-11.32,0l-72-72a8,8,0,0,1,11.32-11.32L120,196.69V40a8,8,0,0,1,16,0V196.69l58.34-58.35a8,8,0,0,1,11.32,11.32Z"
-                              ></path>
+                            <svg width="24px" height="24px" viewBox="0 0 300 150" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M10 75 C 40 20, 80 20, 110 75 S 200 130, 250 75" 
+                                fill="none" 
+                                stroke="white" 
+                                stroke-width="12" />
                             </svg>
                           </div>
                           <p className="text-white text-sm font-medium leading-normal">Sign Message</p>
@@ -88,15 +89,24 @@ const Dashboard = () => {
                           }
                         >
                           <div className="text-white" data-icon="ArrowCircleUp" data-size="24px" data-weight="regular">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
-                              <path
-                                d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm37.66-101.66a8,8,0,0,1-11.32,11.32L136,107.31V168a8,8,0,0,1-16,0V107.31l-18.34,18.35a8,8,0,0,1-11.32-11.32l32-32a8,8,0,0,1,11.32,0Z"
-                              ></path>
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              viewBox="0 0 24 24"
+                              width="24px"
+                              height="24px"
+                              fill="none"
+                              stroke="currentColor"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            >
+                                <circle cx="12" cy="12" r="8" />
+                                <line x1="12" y1="8" x2="12" y2="16" />
+                                <line x1="8" y1="12" x2="16" y2="12" />
                             </svg>
                           </div>
                           <p className="text-white text-sm font-medium leading-normal">Create Token</p>
                         </NavLink>
-
                       </div>
                     </div>
                   </div>

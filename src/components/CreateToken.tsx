@@ -15,17 +15,45 @@ const CreateToken = () => {
     const [tokenImage, setTokenImage] = useState(null);
     const [loading, setLoading] = useState(false);
 
+    const [name, setName] = useState("");
+    const [symbol, setSymbol] = useState("");
+    const [description, setDescription] = useState("");
+    const [decimals, setDecimals] = useState("");
+    const [supply, setSupply] = useState("");
+
     const handleImageChange = (e: any) => {
         setTokenImage(e.target.files[0]);
     };
 
+    const handleNameInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setName(event.target.value);
+    };
+
+    const handleSymbolInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setSymbol(event.target.value);
+    };
+
+    const handleDescriptionInputChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+        setDescription(event.target.value);
+    };
+
+    const handleDecimalsInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setDecimals(event.target.value);
+    };
+
+    const handleSupplyInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setSupply(event.target.value);
+    };
+
     const handleImageUpload = async () => {
-        const name = (document.getElementById("name") as HTMLInputElement)!.value;
-        const symbol = (document.getElementById("symbol") as HTMLInputElement)!.value;
-        const description = (document.getElementById("description") as HTMLInputElement)!.value;
+        if(!name) toast.error("Please enter name");
+        if(!symbol) toast.error("Please enter symbol");
+        if(!description) toast.error("Please enter description");
+        if(!decimals) toast.error("Please enter decimals");
+        if(!supply) toast.error("Please enter supply");
 
         if (!tokenImage) {
-            alert('Please select an image!');
+            toast.error('Please select an image');
             return;
         }
 
@@ -82,11 +110,6 @@ const CreateToken = () => {
     };
 
     async function createToken(metadataURL: any) {
-        const name = (document.getElementById("name") as HTMLInputElement)!.value;
-        const symbol = (document.getElementById("symbol") as HTMLInputElement)!.value;
-        const decimals = (document.getElementById("decimals") as HTMLInputElement)!.value
-        const supply = (document.getElementById("supply") as HTMLInputElement)!.value;
-
         // const revokeMintAuthority = (document.getElementById("revokeMintAuthority") as HTMLInputElement)!.checked;
         // const revokeFreezeAuthority = (document.getElementById("revokeFreezeAuthority") as HTMLInputElement)!.checked;
         // const revokeUpdateAuthority = (document.getElementById("revokeUpdateAuthority") as HTMLInputElement)?.checked;
@@ -203,6 +226,7 @@ const CreateToken = () => {
                                         placeholder="Name"
                                         className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-white focus:outline-0 focus:ring-0 border border-[#3c4753] bg-[#1c2126] focus:border-[#3c4753] h-14 placeholder:text-[#9dabb8] p-[15px] text-base font-normal leading-normal"
                                         id="name"
+                                        onChange={handleNameInputChange}
                                     />
                                 </label>
     
@@ -212,6 +236,7 @@ const CreateToken = () => {
                                         placeholder="Symbol"
                                         className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-white focus:outline-0 focus:ring-0 border border-[#3c4753] bg-[#1c2126] focus:border-[#3c4753] h-14 placeholder:text-[#9dabb8] p-[15px] text-base font-normal leading-normal"
                                         id="symbol"
+                                        onChange={handleSymbolInputChange}
                                     />
                                 </label>
                             </div>
@@ -223,6 +248,7 @@ const CreateToken = () => {
                                         placeholder="Decimals"
                                         className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-white focus:outline-0 focus:ring-0 border border-[#3c4753] bg-[#1c2126] focus:border-[#3c4753] h-14 placeholder:text-[#9dabb8] p-[15px] text-base font-normal leading-normal"
                                         id="decimals"
+                                        onChange={handleDecimalsInputChange}
                                     />
                                 </label>
     
@@ -232,6 +258,7 @@ const CreateToken = () => {
                                         placeholder="Supply"
                                         className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-white focus:outline-0 focus:ring-0 border border-[#3c4753] bg-[#1c2126] focus:border-[#3c4753] h-14 placeholder:text-[#9dabb8] p-[15px] text-base font-normal leading-normal"
                                         id="supply"
+                                        onChange={handleSupplyInputChange}
                                     />
                                 </label>
                             </div>
@@ -251,6 +278,7 @@ const CreateToken = () => {
                                         className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-white focus:outline-0 focus:ring-0 border border-[#3c4753] bg-[#1c2126] focus:border-[#3c4753] h-14 placeholder:text-[#9dabb8] p-[15px] text-base font-normal leading-normal"
                                         id="description"
                                         rows={5}
+                                        onChange={handleDescriptionInputChange}
                                     />
                                 </label> 
                             </div>
