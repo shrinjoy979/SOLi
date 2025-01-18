@@ -162,7 +162,10 @@ const CustomSwap = () => {
                             <h1 className="text-white text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 text-left pb-3 pt-5">Swap</h1>
                             <div className="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
                                 <label className="flex flex-col min-w-40 flex-1">
-                                    <p className="text-white text-base font-medium leading-normal pb-2">From</p>
+                                    <div className="flex">
+                                        <p className="text-white text-base font-medium leading-normal pb-2 pr-2">From</p>
+                                        <img src={fromAsset?.logoURI} alt="" className="max-w-[35px] max-h-[35px] rounded-full relative bottom-[8px]" />
+                                    </div>
                                     <select
                                         value={fromAsset?.symbol}
                                         onChange={handleFromAssetChange}
@@ -190,7 +193,10 @@ const CustomSwap = () => {
                             </div>
                             <div className="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
                                 <label className="flex flex-col min-w-40 flex-1">
-                                    <p className="text-white text-base font-medium leading-normal pb-2">To</p>
+                                    <div className="flex">
+                                        <p className="text-white text-base font-medium leading-normal pb-2 pr-2">To</p>
+                                        <img src={toAsset?.logoURI} alt="" className="max-w-[35px] max-h-[35px] rounded-full relative bottom-[8px]" />
+                                    </div>
                                     <select
                                         value={toAsset?.symbol}
                                         onChange={handleToAssetChange}
