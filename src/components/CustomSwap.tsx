@@ -2,6 +2,7 @@ import { useWallet } from '@solana/wallet-adapter-react';
 import { VersionedTransaction, Connection } from '@solana/web3.js';
 import axios from 'axios';
 import React, { useState, useEffect, useCallback } from 'react';
+import { toast } from 'react-toastify';
 
 interface TokenInfo {
     address: string;
@@ -49,7 +50,7 @@ const CustomSwap = () => {
 
     // Need a custom RPC so you don't get rate-limited
     const connection = new Connection(
-        'https://api.devnet.solana.com'
+        'https://solana-devnet.g.alchemy.com/v2/IR7u23Ytxfa-vBJZhy2fXkTnvxKGUPUa'
     );
 
     const handleFromAssetChange = async (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -68,7 +69,7 @@ const CustomSwap = () => {
 
     useEffect(() => {
         debounceQuoteCall(fromAsset, toAsset, fromAmount);
-    }, [fromAmount, debounceQuoteCall]);
+    }, [fromAmount, toAsset, debounceQuoteCall]);
 
     async function getQuote(fromAsset: any, toAsset: any, currentAmount: number) {
         if (isNaN(currentAmount) || currentAmount <= 0) {
@@ -94,11 +95,13 @@ const CustomSwap = () => {
 
     async function signAndSendTransaction() {
         if (!wallet.connected || !wallet.signTransaction) {
-            console.error(
+            toast.error(
                 'Wallet is not connected or does not support signing transactions'
             );
             return;
         }
+
+        if(!toAmount) { toast.error("Please enter the amount") }
 
         // get serialized transactions for the swap
         const { swapTransaction } = await (
