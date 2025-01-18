@@ -1,14 +1,24 @@
-// import styles from './swap.module.css';
 import { useWallet } from '@solana/wallet-adapter-react';
 import { VersionedTransaction, Connection } from '@solana/web3.js';
+import axios from 'axios';
 import React, { useState, useEffect, useCallback } from 'react';
 
-const assets = [
-  { name: 'SOL', mint: 'So11111111111111111111111111111111111111112', decimals: 9},
-  { name: 'USDC', mint: 'EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v', decimals: 6},
-  { name: 'BONK', mint: 'DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263', decimals: 5 },
-  { name: 'WIF', mint: 'EKpQGSJtjMFqKZ9KQanSqYXRcF8fBopzLHYxdM65zcjm', decimals: 6},
-];
+interface TokenInfo {
+    address: string;
+    created_at: string;
+    daily_volume: number;
+    decimals: number;
+    extensions: {
+        coingeckoId: string;
+    };
+    freeze_authority: string | null;
+    logoURI: string;
+    mint_authority: string | null;
+    minted_at: string | null;
+    permanent_delegate: string | null;
+    symbol: string;
+    tags: string[];
+}
 
 const debounce = <T extends unknown[]>(
   func: (...args: T) => void,
@@ -28,26 +38,26 @@ const debounce = <T extends unknown[]>(
 };
 
 const CustomSwap = () => {
-    const [fromAsset, setFromAsset] = useState(assets[0]);
-    const [toAsset, setToAsset] = useState(assets[1]);
+    const [fromAsset, setFromAsset] = useState<TokenInfo>();
+    const [toAsset, setToAsset] = useState<TokenInfo>();
     const [fromAmount, setFromAmount] = useState(0);
     const [toAmount, setToAmount] = useState(0);
     const [quoteResponse, setQuoteResponse] = useState(null);
+    const [availableTokens, setAvailableTokens] = useState<TokenInfo[]>([]);
 
     const wallet = useWallet();
 
-    // Need a custom RPC so you don't get rate-limited, don't rely on users' wallets
+    // Need a custom RPC so you don't get rate-limited
     const connection = new Connection(
         'https://api.devnet.solana.com'
     );
 
     const handleFromAssetChange = async (event: React.ChangeEvent<HTMLSelectElement>) => {
-        console.log(event.target.value);
-        setFromAsset(assets.find((asset) => asset.name === event.target.value) || assets[0]);
+        setFromAsset(availableTokens.find((token) => token.symbol === event.target.value));
     };
 
     const handleToAssetChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        setToAsset(assets.find((asset) => asset.name === event.target.value) || assets[0]);
+        setToAsset(availableTokens.find((token) => token.symbol === event.target.value));
     };
 
     const handleFromValueChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -57,21 +67,25 @@ const CustomSwap = () => {
     const debounceQuoteCall = useCallback(debounce(getQuote, 500), []);
 
     useEffect(() => {
-        debounceQuoteCall(fromAmount);
+        debounceQuoteCall(fromAsset, toAsset, fromAmount);
     }, [fromAmount, debounceQuoteCall]);
 
-    async function getQuote(currentAmount: number) {
+    async function getQuote(fromAsset: any, toAsset: any, currentAmount: number) {
         if (isNaN(currentAmount) || currentAmount <= 0) {
             console.error('Invalid fromAmount value:', currentAmount);
             return;
         }
 
+        const selectedFormAddress = fromAsset?.address;
+        const selectedToAddress = toAsset?.address;
+        const enteredAmount = currentAmount * Math.pow(10, Number(fromAsset?.decimals));
+
         const quote = await ( await fetch(
-            `https://quote-api.jup.ag/v6/quote?inputMint=${fromAsset.mint}&outputMint=${toAsset.mint}&amount=${currentAmount * Math.pow(10, fromAsset.decimals)}&slippage=0.5`
+            `https://quote-api.jup.ag/v6/quote?inputMint=${selectedFormAddress}&outputMint=${selectedToAddress}&amount=${enteredAmount}&slippage=0.5`
         )).json();
 
         if (quote && quote.outAmount) {
-            const outAmountNumber = Number(quote.outAmount) / Math.pow(10, toAsset.decimals);
+            const outAmountNumber = Number(quote.outAmount) / Math.pow(10, Number(toAsset?.decimals));
             setToAmount(outAmountNumber);
         }
 
@@ -127,6 +141,16 @@ const CustomSwap = () => {
         }
     }
 
+    useEffect(()=>{
+        async function getAllTokens(){
+            const response  = await axios.get('https://tokens.jup.ag/tokens?tags=verified');
+            setAvailableTokens(response.data);
+            setFromAsset(response.data[0]);
+            setToAsset(response.data[1]);
+        }
+        getAllTokens();
+    },[])
+
     return (
         <>
             <div
@@ -140,13 +164,13 @@ const CustomSwap = () => {
                                 <label className="flex flex-col min-w-40 flex-1">
                                     <p className="text-white text-base font-medium leading-normal pb-2">From</p>
                                     <select
-                                        value={fromAsset.name}
+                                        value={fromAsset?.symbol}
                                         onChange={handleFromAssetChange}
                                         className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-white focus:outline-0 focus:ring-0 border-none bg-[#293038] focus:border-none h-14 bg-[image:--select-button-svg] placeholder:text-[#9dabb8] p-4 text-base font-normal leading-normal"
                                     >
-                                        {assets.map((asset) => (
-                                            <option key={asset.mint} value={asset.name}>
-                                                {asset.name}
+                                        {availableTokens.map((token) => (
+                                            <option key={token.address} value={token?.symbol}>
+                                                {token.symbol}
                                             </option>
                                         ))}
                                     </select>
@@ -168,14 +192,14 @@ const CustomSwap = () => {
                                 <label className="flex flex-col min-w-40 flex-1">
                                     <p className="text-white text-base font-medium leading-normal pb-2">To</p>
                                     <select
-                                        value={toAsset.name}
+                                        value={toAsset?.symbol}
                                         onChange={handleToAssetChange}
                                         className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-white focus:outline-0 focus:ring-0 border-none bg-[#293038] focus:border-none h-14 bg-[image:--select-button-svg] placeholder:text-[#9dabb8] p-4 text-base font-normal leading-normal"
                                     >
-                                        {assets.map((asset) => (
-                                        <option key={asset.mint} value={asset.name}>
-                                            {asset.name}
-                                        </option>
+                                        {availableTokens.map((token) => (
+                                            <option key={token.address} value={token.symbol}>
+                                                {token.symbol}
+                                            </option>
                                         ))}
                                     </select>
                                 </label>
@@ -187,7 +211,6 @@ const CustomSwap = () => {
                                         type="number"
                                         value={toAmount}
                                         placeholder="0.0"
-                                        // onChange={(e) => setToAmount(Number(e.target.value))}
                                         className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-white focus:outline-0 focus:ring-0 border-none bg-[#293038] focus:border-none h-14 placeholder:text-[#9dabb8] p-4 text-base font-normal leading-normal"
                                         readOnly
                                     />
@@ -196,21 +219,14 @@ const CustomSwap = () => {
                             <div className="flex justify-stretch">
                                 <div className="flex flex-1 gap-3 flex-wrap px-4 py-3 justify-end">
                                     <button
-                                        className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-4 bg-[#293038] text-white text-sm font-bold leading-normal tracking-[0.015em]"
-                                    >
-                                        <span className="truncate">Max</span>
-                                    </button>
-                                    <button
                                         className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-4 bg-[#1980e6] text-white text-sm font-bold leading-normal tracking-[0.015em]"
                                         onClick={signAndSendTransaction}
-                                        disabled={toAsset.mint === fromAsset.mint}
+                                        disabled={toAsset?.address === fromAsset?.address}
                                     >
                                         <span className="truncate">Swap</span>
                                     </button>
                                 </div>
                             </div>
-                            <p className="text-[#9dabb8] text-sm font-normal leading-normal pb-3 pt-1 px-4">Transaction Fee: $0.00 (0.0005 BTC)</p>
-                            <p className="text-[#9dabb8] text-sm font-normal leading-normal pb-3 pt-1 px-4">You will receive: 0.0 ETH</p>
                         </div>
                     </div>
                 </div>
