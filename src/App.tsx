@@ -9,6 +9,7 @@ import { ToastContainer } from 'react-toastify';
 import SendTokens from './components/SendSolana';
 import SignatureMessage from './components/SignatureMessage';
 import CreateToken from './components/CreateToken';
+import Swap from './components/Swap';
 
 function App() {
 
@@ -26,6 +27,7 @@ function App() {
                       <Route path="/send-tokens" element={<SendTokens />} />
                       <Route path="/sign-a-message" element={<SignatureMessage />} />
                       <Route path="/create-a-token" element={<CreateToken />} />
+                      <Route path="/swap" element={<Swap />} />
                     </Routes>
                   </MainLayout>
                 </Router>

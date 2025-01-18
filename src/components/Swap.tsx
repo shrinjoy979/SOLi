@@ -1,47 +1,43 @@
-const { Connection, Keypair, VersionedTransaction } = require('@solana/web3.js');
-const axios = require('axios');
-const { Wallet } = require('@project-serum/anchor');
-const bs58 = require('bs58');
-// It is recommended that you use your own RPC endpoint.
-// This RPC endpoint is only for demonstration purposes so that this example will run.
-const connection = new Connection('https://api.mainnet-beta.solana.com');
-const wallet = new Wallet(Keypair.fromSecretKey(bs58.decode(process.env.PRIVATE_KEY)));
-async function main() {
-    const response = await (
-        await axios.get('https://quote-api.jup.ag/v6/quote?inputMint=So11111111111111111111111111111111111111112&outputMint=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v&amount=100000000&slippageBps=50'
-        )
-      );
-      const quoteResponse = response.data;
-      console.log(quoteResponse);
-      try {
-        const { data: { swapTransaction } } = await (
-            await axios.post('https://quote-api.jup.ag/v6/swap', {
-                quoteResponse,
-                userPublicKey: wallet.publicKey.toString(),
-            })
-        );
-        console.log("swapTransaction")
-        const swapTransactionBuf = Buffer.from(swapTransaction, 'base64');
-        var transaction = VersionedTransaction.deserialize(swapTransactionBuf);
-        console.log(transaction);
-          
-        transaction.sign([wallet.payer]);
-        const latestBlockHash = await connection.getLatestBlockhash();
-        // Execute the transaction
-        const rawTransaction = transaction.serialize()
-        const txid = await connection.sendRawTransaction(rawTransaction, {
-            skipPreflight: true,
-            maxRetries: 2
-        });
-        await connection.confirmTransaction({
-            blockhash: latestBlockHash.blockhash,
-            lastValidBlockHeight: latestBlockHash.lastValidBlockHeight,
-            signature: txid
-        });
-        console.log(`https://solscan.io/tx/${txid}`);
-      } catch(e) {
-        console.log(e)
-      }
-      
+import { useEffect } from "react";
+
+/**
+  The declare global block in TypeScript is used to extend or modify global types. It allows us to add custom properties or methods to global objects like window, document, etc.
+
+  In the provided code, we're using window.Jupiter, but window does not natively include a Jupiter property. TypeScript, being strongly typed, doesn't recognize window.Jupiter and will throw an error unless you explicitly tell it that such a property exists.
+
+  By adding this declaration, you're informing TypeScript about the shape and type of the Jupiter object attached to the window object.
+*/
+
+declare global {
+  interface Window {
+    Jupiter: {
+      init: (config: { containerId: string; endpoint: string }) => void;
+    };
+  }
 }
-main();
+
+const Swap = () => {
+  useEffect(() => {
+    // Check if the Jupiter object exists on the window
+    if (window.Jupiter) {
+      window.Jupiter.init({
+        containerId: 'jupiter-terminal', // ID of the container div
+        endpoint: 'https://api.devnet.solana.com', // Solana RPC endpoint
+      });
+    } else {
+      console.error('Jupiter object is not available on the window. Ensure the script is loaded correctly.');
+    }
+  }, []);
+
+  return (
+    <div className="relative flex size-full min-h-screen flex-col bg-[#111418] dark group/design-root overflow-x-hidden" style={{ fontFamily: `"Work Sans", "Noto Sans", sans-serif` }}>
+      <div className="layout-container flex h-full grow flex-col">
+        <div className="px-40 flex flex-1 justify-center py-5">
+          <div id="jupiter-terminal" />
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export default Swap;
