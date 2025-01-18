@@ -9,7 +9,6 @@ import { ToastContainer } from 'react-toastify';
 import SendTokens from './components/SendSolana';
 import SignatureMessage from './components/SignatureMessage';
 import CreateToken from './components/CreateToken';
-import Swap from './components/Swap';
 import CustomSwap from './components/CustomSwap';
 
 function App() {
