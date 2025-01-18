@@ -56,6 +56,15 @@ const Header = () => {
                         Create Token
                     </NavLink>
 
+                    <NavLink
+                        to="/swap"
+                        className={({ isActive }) => 
+                            `text-white text-sm font-medium leading-normal ${isActive ? "text-silver" : ""}`
+                        }
+                    >
+                        Swap
+                    </NavLink>
+
                     <a className="text-white text-sm font-medium leading-normal" href="#">
                         <ShowBalance />
                     </a>
