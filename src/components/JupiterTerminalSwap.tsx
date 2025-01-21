@@ -16,7 +16,7 @@ declare global {
   }
 }
 
-const Swap = () => {
+const JupiterTerminalSwap = () => {
   useEffect(() => {
     // Check if the Jupiter object exists on the window
     if (window.Jupiter) {
@@ -40,4 +40,4 @@ const Swap = () => {
   )
 }
 
-export default Swap;
+export default JupiterTerminalSwap;
