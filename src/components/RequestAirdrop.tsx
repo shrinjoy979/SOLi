@@ -14,8 +14,19 @@ const RequestAirdrop = () => {
     };
 
     async function sendAirdropToUser() {
-        connection.requestAirdrop(wallet.publicKey!, Number(amount) * LAMPORTS_PER_SOL);
-        toast.success("Airdropped SOL");
+        if(Number(amount) > 2) {
+            return toast.error("Requested Solana can't be more than 2");
+        }
+
+        connection.requestAirdrop(wallet.publicKey!, Number(amount) * LAMPORTS_PER_SOL)
+        .then(response => {
+            toast.success("Airdropped SOL");
+            console.log("Airdrop successful:", response);
+        })
+        .catch(error => {
+            console.log(error);
+            toast.error("You've either reached your airdrop limit today or the airdrop faucet has run dry.")
+        });
     }
     
     return(
@@ -33,6 +44,7 @@ const RequestAirdrop = () => {
                             <div className="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
                                 <label className="flex flex-col min-w-40 flex-1">
                                     <input
+                                        type="number"
                                         placeholder="Amount"
                                         className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-white focus:outline-0 focus:ring-0 border border-[#3c4753] bg-[#1c2126] focus:border-[#3c4753] h-14 placeholder:text-[#9dabb8] p-[15px] text-base font-normal leading-normal"
                                         id="amount"
