@@ -10,6 +10,7 @@ import SendTokens from './components/SendSolana';
 import SignatureMessage from './components/SignatureMessage';
 import CreateToken from './components/CreateToken';
 import CustomSwap from './components/CustomSwap';
+import LiquidityPool from './components/LiquidityPool';
 
 function App() {
 
@@ -28,6 +29,7 @@ function App() {
                       <Route path="/sign-a-message" element={<SignatureMessage />} />
                       <Route path="/create-a-token" element={<CreateToken />} />
                       <Route path="/swap" element={<CustomSwap />} />
+                      <Route path="/liquidity-pool" element={<LiquidityPool />} />
                     </Routes>
                   </MainLayout>
                 </Router>
