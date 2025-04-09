@@ -65,6 +65,15 @@ const Header = () => {
                         Swap
                     </NavLink>
 
+                    {/* <NavLink
+                        to="/liquidity-pool"
+                        className={({ isActive }) => 
+                            `text-white text-sm font-medium leading-normal ${isActive ? "text-silver" : ""}`
+                        }
+                    >
+                        Liquidity Pool
+                    </NavLink> */}
+
                     <a className="text-white text-sm font-medium leading-normal" href="#">
                         <ShowBalance />
                     </a>
