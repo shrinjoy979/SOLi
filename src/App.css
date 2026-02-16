@@ -1,3 +1,24 @@
 .text-silver {
     color: #B0C4DE;
 }
+
+.btn-primary {
+    background-color: #512da8;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    font-family: 'DM Sans', 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    height: 48px;
+    line-height: 48px;
+    padding: 0 24px;
+    border-radius: 4px;
+    margin: 0 8px;
+}
+
+.btn-primary:hover {
+    background-color: #1a1f2e;
+}

@@ -11,6 +11,7 @@ import SignatureMessage from './components/SignatureMessage';
 import CreateToken from './components/CreateToken';
 import CustomSwap from './components/CustomSwap';
 import LiquidityPool from './components/LiquidityPool';
+import SeedPhrase from './components/SeedPhrase';
 
 function App() {
 
@@ -30,6 +31,7 @@ function App() {
                       <Route path="/create-a-token" element={<CreateToken />} />
                       <Route path="/swap" element={<CustomSwap />} />
                       <Route path="/liquidity-pool" element={<LiquidityPool />} />
+                      <Route path="/seed-phrase" element={<SeedPhrase />} />
                     </Routes>
                   </MainLayout>
                 </Router>
