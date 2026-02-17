@@ -1,11 +1,16 @@
-import { generateMnemonic } from "bip39";
+import { generateMnemonic, mnemonicToSeedSync } from "bip39";
 import { useEffect, useState } from "react";
 import { FiEyeOff } from "react-icons/fi";
 import { toast } from "react-toastify";
+import { Keypair } from "@solana/web3.js";
+import { derivePath } from "ed25519-hd-key";
 
 const SeedPhrase = () => {
     const [mnemonic, setMnemonic] = useState<String[]>([]);
     const [isHovering, setIsHovering] = useState(false);
+    const [publicKey, setPublicKey] = useState("");
+    const [privateKey, setPrivateKey] = useState("");
+    const [showPrivateKey, setShowPrivateKey] = useState(false);
 
     const copySeed = () => {
         navigator.clipboard.writeText(mnemonic.join(" "));
@@ -17,6 +22,21 @@ const SeedPhrase = () => {
             const mnemonic = generateMnemonic();
             const words = mnemonic.split(" ");
             setMnemonic(words);
+
+            // Convert mnemonic → seed buffer
+            const seed = mnemonicToSeedSync(mnemonic);
+
+            // Derivation path for Solana
+            const path = "m/44'/501'/0'/0'";
+            const derivedSeed = derivePath(path, seed.toString("hex")).key;
+            const keypair = Keypair.fromSeed(derivedSeed);
+
+            // Convert public key to readable format
+            const publicKey = keypair.publicKey.toBase58();
+            setPublicKey(publicKey);
+
+            const privateKey = keypair.secretKey;
+            setPrivateKey(Buffer.from(privateKey).toString("base58"));
         } catch(e) {
             console.error('Error in create mnemonic', e);
         }
@@ -77,6 +97,8 @@ const SeedPhrase = () => {
                             I've Saved It
                         </button>
                     </div>
+
+
                 </div>
             </div>
         </div>
