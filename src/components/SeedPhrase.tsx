@@ -4,6 +4,7 @@ import { FiEyeOff } from "react-icons/fi";
 import { toast } from "react-toastify";
 import { Keypair } from "@solana/web3.js";
 import { derivePath } from "ed25519-hd-key";
+import bs58 from "bs58";
 
 const SeedPhrase = () => {
     const [mnemonic, setMnemonic] = useState<String[]>([]);
@@ -36,7 +37,8 @@ const SeedPhrase = () => {
             setPublicKey(publicKey);
 
             const privateKey = keypair.secretKey;
-            setPrivateKey(Buffer.from(privateKey).toString("base58"));
+            const privateKeyBase58 = bs58.encode(privateKey);
+            setPrivateKey(privateKeyBase58);
         } catch(e) {
             console.error('Error in create mnemonic', e);
         }
@@ -98,7 +100,34 @@ const SeedPhrase = () => {
                         </button>
                     </div>
 
+                    <div className="px-6 mt-10">
+                        <div className="bg-[#1a1a1a] rounded-2xl p-6 shadow-lg">
+                            <h2 className="text-white text-xl font-semibold mb-6">
+                                Wallet 1
+                            </h2>
 
+                            <div className="mb-6">
+                                <p className="text-gray-400 text-sm mb-1">Public Key</p>
+                                <div className="bg-black/40 p-3 rounded-lg text-white text-sm break-all">
+                                    {publicKey}
+                                </div>
+                            </div>
+
+                            <div>
+                                <p className="text-gray-400 text-sm mb-1">Private Key</p>
+
+                                <div className="relative bg-black/40 p-3 rounded-lg text-white text-sm break-all pr-10">
+                                    {showPrivateKey ? privateKey : "•".repeat(64)}
+                                    <button
+                                        onClick={() => setShowPrivateKey(!showPrivateKey)}
+                                        className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white"
+                                    >
+                                        <FiEyeOff size={18} />
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
