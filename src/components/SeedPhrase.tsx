@@ -12,6 +12,8 @@ const SeedPhrase = () => {
     const [publicKey, setPublicKey] = useState("");
     const [privateKey, setPrivateKey] = useState("");
     const [showPrivateKey, setShowPrivateKey] = useState(false);
+    const [wallets, setWallets] = useState<{publicKey: String, privateKey: String}[]>([]);
+    const [walletIndex, setWalletIndex] = useState(0);
 
     const copySeed = () => {
         navigator.clipboard.writeText(mnemonic.join(" "));
@@ -34,11 +36,14 @@ const SeedPhrase = () => {
 
             // Convert public key to readable format
             const publicKey = keypair.publicKey.toBase58();
-            setPublicKey(publicKey);
+            // setPublicKey(publicKey);
 
             const privateKey = keypair.secretKey;
             const privateKeyBase58 = bs58.encode(privateKey);
-            setPrivateKey(privateKeyBase58);
+            // setPrivateKey(privateKeyBase58);
+
+            setWallets([{ publicKey: publicKey, privateKey: privateKeyBase58 }]);
+            setWalletIndex(1);
         } catch(e) {
             console.error('Error in create mnemonic', e);
         }
