@@ -1,11 +1,16 @@
 import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
+import { NavLink } from "react-router-dom";
 
 const SelectWallet = () => {
 
     return (
         <div className="flex items-center justify-center">
             <WalletMultiButton></WalletMultiButton>
-            <button className="btn-primary">Generate Wallet</button>
+            <NavLink
+                to="/seed-phrase"
+            >
+             <button className="btn-primary">Generate Wallet</button>
+            </NavLink>
         </div>
     )
 }
