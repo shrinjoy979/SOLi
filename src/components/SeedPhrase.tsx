@@ -1,6 +1,6 @@
 import { generateMnemonic, mnemonicToSeedSync } from "bip39";
 import { useEffect, useState } from "react";
-import { FiEyeOff } from "react-icons/fi";
+import { FiTrash2, FiEyeOff } from "react-icons/fi";
 import { toast } from "react-toastify";
 import { Keypair } from "@solana/web3.js";
 import { derivePath } from "ed25519-hd-key";
@@ -9,8 +9,6 @@ import bs58 from "bs58";
 const SeedPhrase = () => {
     const [mnemonic, setMnemonic] = useState<String[]>([]);
     const [isHovering, setIsHovering] = useState(false);
-    const [publicKey, setPublicKey] = useState("");
-    const [privateKey, setPrivateKey] = useState("");
     const [showPrivateKey, setShowPrivateKey] = useState(false);
     const [wallets, setWallets] = useState<{publicKey: String, privateKey: String}[]>([]);
     const [walletIndex, setWalletIndex] = useState(0);
@@ -19,6 +17,25 @@ const SeedPhrase = () => {
         navigator.clipboard.writeText(mnemonic.join(" "));
         toast.success("Seed phrase copied!");
     };
+
+    const addWallet = () => {
+        const seed = mnemonicToSeedSync(mnemonic.join(" "));
+        const path = `m/44'/501'/${walletIndex}'/0'`;
+
+        const derivedSeed = derivePath(path, seed.toString("hex")).key;
+        const keypair = Keypair.fromSeed(derivedSeed);
+
+        const publicKey = keypair.publicKey.toBase58();
+        const privateKey = bs58.encode(keypair.secretKey);
+
+        setWallets(prev => [...prev, { publicKey, privateKey }]);
+        setWalletIndex(prev => prev + 1);
+    }
+
+    const clearWallets = () => {
+        setWallets([]);
+        setWalletIndex(0);
+    }
 
     useEffect(() => {
         try {
@@ -36,14 +53,12 @@ const SeedPhrase = () => {
 
             // Convert public key to readable format
             const publicKey = keypair.publicKey.toBase58();
-            // setPublicKey(publicKey);
 
             const privateKey = keypair.secretKey;
             const privateKeyBase58 = bs58.encode(privateKey);
-            // setPrivateKey(privateKeyBase58);
 
-            setWallets([{ publicKey: publicKey, privateKey: privateKeyBase58 }]);
-            setWalletIndex(1);
+            setWallets(prev => [...prev, {publicKey: publicKey, privateKey: privateKeyBase58}]);
+            setWalletIndex(prev => prev + 1);
         } catch(e) {
             console.error('Error in create mnemonic', e);
         }
@@ -105,33 +120,60 @@ const SeedPhrase = () => {
                         </button>
                     </div>
 
+                    <div className="flex justify-end gap-3 px-6 mt-4">
+                        <button
+                            onClick={addWallet}
+                            className="bg-white hover:bg-gray-300 text-black px-4 py-2 rounded-lg transition"
+                        >
+                            Add Wallet
+                        </button>
+
+                        <button
+                            onClick={clearWallets}
+                            className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg"
+                        >
+                            Clear Wallets
+                        </button>
+                    </div>
+
                     <div className="px-6 mt-10">
-                        <div className="bg-[#1a1a1a] rounded-2xl p-6 shadow-lg">
-                            <h2 className="text-white text-xl font-semibold mb-6">
-                                Wallet 1
-                            </h2>
+                        {wallets?.map((wallet, index) => (
+                            <div
+                                className="bg-[#1a1a1a] rounded-2xl p-6 shadow-lg relative"
+                                key={index}
+                            >
+                                <h2 className="text-white text-xl font-semibold mb-6">
+                                    Wallet {index + 1}
+                                </h2>
+                                <FiTrash2 
+                                    className="absolute top-6 right-6 text-red-500 cursor-pointer"
+                                    onClick={() =>
+                                        setWallets(prev => prev.filter((_, i) => i != index))
+                                    }
+                                />
 
-                            <div className="mb-6">
-                                <p className="text-gray-400 text-sm mb-1">Public Key</p>
-                                <div className="bg-black/40 p-3 rounded-lg text-white text-sm break-all">
-                                    {publicKey}
+                                <div className="mb-6">
+                                    <p className="text-gray-400 text-sm mb-1">Public Key</p>
+                                    <div className="bg-black/40 p-3 rounded-lg text-white text-sm break-all">
+                                        {wallet?.publicKey}
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <p className="text-gray-400 text-sm mb-1">Private Key</p>
+
+                                    <div className="relative bg-black/40 p-3 rounded-lg text-white text-sm break-all pr-10">
+                                        {showPrivateKey ? wallet?.privateKey : "•".repeat(64)}
+                                        <button
+                                            onClick={() => setShowPrivateKey(!showPrivateKey)}
+                                            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white"
+                                        >
+                                            <FiEyeOff size={18} />
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
-
-                            <div>
-                                <p className="text-gray-400 text-sm mb-1">Private Key</p>
-
-                                <div className="relative bg-black/40 p-3 rounded-lg text-white text-sm break-all pr-10">
-                                    {showPrivateKey ? privateKey : "•".repeat(64)}
-                                    <button
-                                        onClick={() => setShowPrivateKey(!showPrivateKey)}
-                                        className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white"
-                                    >
-                                        <FiEyeOff size={18} />
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
+                        ))}
                     </div>
                 </div>
             </div>
