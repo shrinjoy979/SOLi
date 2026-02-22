@@ -1,27 +1,34 @@
-import { useConnection, useWallet } from "@solana/wallet-adapter-react"
+import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import { LAMPORTS_PER_SOL } from "@solana/web3.js";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const ShowBalance = () => {
-    const wallet = useWallet();
-    const { connection } = useConnection();
+  const { publicKey } = useWallet();
+  const { connection } = useConnection();
+  const [balance, setBalance] = useState<number | null>(null);
 
-    async function getBalance() {
-        const balance = await connection.getBalance(wallet.publicKey!);
-        document.getElementById("balance")!.innerHTML = (balance / LAMPORTS_PER_SOL).toString();
-    }
+  useEffect(() => {
+    const fetchBalance = async () => {
+      if (!publicKey) return;
 
-    useEffect(() => {
-        getBalance();
-    }, [wallet])
+      const lamports = await connection.getBalance(publicKey);
+      setBalance(lamports / LAMPORTS_PER_SOL);
+    };
 
-    return (
-        <div>
-            {wallet.publicKey ? 
-                <p>Balance: <span id="balance"></span> SOL</p>
-            : null}
-        </div>
-    )
-}
+    fetchBalance();
+  }, [publicKey, connection]);
 
-export default ShowBalance
+  if (!publicKey) return null;
+
+  return (
+    <p className="text-sm font-medium text-gray-700 dark:text-gray-300 transition-colors duration-300">
+      Balance:{" "}
+      <span className="font-semibold text-indigo-500">
+        {balance !== null ? balance : "Loading..."}
+      </span>{" "}
+      SOL
+    </p>
+  );
+};
+
+export default ShowBalance;

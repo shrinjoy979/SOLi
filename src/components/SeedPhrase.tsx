@@ -118,19 +118,30 @@ const SeedPhrase = () => {
                         <h2 className="text-lg font-semibold text-white">Wallets</h2>
 
                         <div className="flex gap-3">
-                            <button
-                                onClick={addWallet}
-                                className="bg-white hover:bg-gray-200 text-black px-4 py-2 rounded-lg transition"
-                            >
-                                Add Wallet
-                            </button>
+                            <div className="flex gap-4">
+                                <button
+                                    onClick={addWallet}
+                                    className="px-5 py-2.5 rounded-xl font-medium 
+                                            bg-gradient-to-r from-indigo-500 to-purple-600 
+                                            text-white shadow-lg shadow-indigo-500/20
+                                            hover:shadow-indigo-500/40 hover:scale-105 
+                                            active:scale-95 
+                                            transition-all duration-300 ease-in-out"
+                                >
+                                    + Add Wallet
+                                </button>
 
-                            <button
-                                onClick={clearWallets}
-                                className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition"
-                            >
-                                Clear
-                            </button>
+                                <button
+                                    onClick={clearWallets}
+                                    className="px-5 py-2.5 rounded-xl font-medium
+                                            bg-[#1f2937] text-red-400 border border-red-500/30
+                                            hover:bg-red-600 hover:text-white hover:border-red-600
+                                            hover:scale-105 active:scale-95
+                                            transition-all duration-300 ease-in-out"
+                                >
+                                    Clear Wallets
+                                </button>
+                            </div>
                         </div>
                     </div>
 

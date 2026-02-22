@@ -12,8 +12,22 @@ import CreateToken from './components/CreateToken';
 import CustomSwap from './components/CustomSwap';
 import LiquidityPool from './components/LiquidityPool';
 import SeedPhrase from './components/SeedPhrase';
+import { useEffect, useState } from 'react';
 
 function App() {
+  const [darkMode, setDarkMode] = useState<boolean>(true);
+
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("theme");
+
+    if (savedTheme === "light") {
+      document.documentElement.classList.remove("dark");
+      setDarkMode(false);
+    } else {
+      document.documentElement.classList.add("dark");
+      setDarkMode(true);
+    }
+  }, []);
 
   return (
     // https://solana-devnet.g.alchemy.com/v2/IR7u23Ytxfa-vBJZhy2fXkTnvxKGUPUa | https://api.devnet.solana.com
@@ -22,7 +36,7 @@ function App() {
         <WalletProvider wallets={[]} autoConnect>
             <WalletModalProvider>
                 <Router>
-                  <MainLayout>
+                  <MainLayout darkMode={darkMode} setDarkMode={setDarkMode}>
                     <Routes>
                       <Route path="/" element={<Dashboard />} />
                       <Route path="/request-airdrop" element={<RequestAirdrop />} />
