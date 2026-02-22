@@ -1,4 +1,4 @@
-import { useConnection, useWallet } from "@solana/wallet-adapter-react"
+import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import { LAMPORTS_PER_SOL } from "@solana/web3.js";
 import { useState } from "react";
 import { toast } from 'react-toastify';
@@ -30,15 +30,15 @@ const RequestAirdrop = () => {
     }
     
     return(
-        <div className="relative flex size-full min-h-screen flex-col bg-[#111418] dark group/design-root overflow-x-hidden" style={{ fontFamily: `"Work Sans", "Noto Sans", sans-serif` }}>
+        <div className="relative flex size-full min-h-screen flex-col bg-gray-100 dark:bg-[#111418] transition-colors duration-300 group/design-root overflow-x-hidden" style={{ fontFamily: `"Work Sans", "Noto Sans", sans-serif` }}>
             <div className="layout-container flex h-full grow flex-col">
                 <div className="px-40 flex flex-1 justify-center py-5">
                     {wallet.publicKey ? 
                         <div className="layout-content-container flex flex-col w-[512px] max-w-[512px] py-5 max-w-[960px] flex-1">
-                            <h1 className="text-white text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 text-left pb-3 pt-5">Request Airdrop</h1>
+                            <h1 className="text-gray-900 dark:text-white text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 text-left pb-3 pt-5">Request Airdrop</h1>
                             {wallet.publicKey ?
-                                <p className="text-white px-4">
-                                    Public Address: {wallet.publicKey ? wallet.publicKey?.toBase58() : "Not Available"}<br/><br/> {/* solana address is 58 bit */}
+                                <p className="text-gray-900 dark:text-white px-4">
+                                    Public Address: {wallet.publicKey ? wallet.publicKey?.toBase58() : "Not Available"}<br/><br/>
                                 </p>
                             : null }
                             <div className="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
@@ -46,7 +46,7 @@ const RequestAirdrop = () => {
                                     <input
                                         type="number"
                                         placeholder="Amount"
-                                        className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-white focus:outline-0 focus:ring-0 border border-[#3c4753] bg-[#1c2126] focus:border-[#3c4753] h-14 placeholder:text-[#9dabb8] p-[15px] text-base font-normal leading-normal"
+                                        className="flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl bg-white dark:bg-[#1c2126] text-gray-900 dark:text-white border border-gray-300 dark:border-[#3c4753] placeholder:text-gray-400 dark:placeholder:text-[#9dabb8] focus:outline-none focus:ring-2 focus:ring-indigo-500 h-14 p-[15px] text-base font-normal leading-normal transition-colors duration-300"
                                         id="amount"
                                         required={true}
                                         value={amount}
@@ -57,11 +57,12 @@ const RequestAirdrop = () => {
                             <div className="flex justify-stretch">
                                 <div className="flex flex-1 gap-3 flex-wrap px-4 py-3 justify-between">
                                     <button
-                                        className={`flex min-w-[84px] max-w-[480px] items-center justify-center overflow-hidden rounded-full h-10 px-4 text-sm font-bold leading-normal tracking-[0.015em] ${
-                                            amount
-                                            ? "bg-[#1980e6] text-white cursor-pointer"
-                                            : "bg-gray-400 text-gray-700 cursor-not-allowed"
-                                        }`}
+                                        className={`flex min-w-[84px] max-w-[480px] items-center justify-center 
+                                            overflow-hidden rounded-full h-10 px-4 text-sm font-bold transition-all duration-300
+                                            ${amount
+                                                ? "bg-indigo-600 hover:bg-indigo-700 text-white"
+                                                : "bg-gray-300 dark:bg-gray-700 text-gray-500 cursor-not-allowed"
+                                            }`}
                                         onClick={sendAirdropToUser}
                                         disabled={!amount}
                                     >
