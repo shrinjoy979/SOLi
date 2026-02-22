@@ -208,33 +208,47 @@ const CreateToken = () => {
     }
 
     return (
-        <div className="relative flex size-full min-h-screen flex-col bg-[#111418] dark group/design-root overflow-x-hidden" style={{ fontFamily: `"Work Sans", "Noto Sans", sans-serif` }}>
+        <div className="relative flex size-full min-h-screen flex-col bg-gray-100 dark:bg-[#111418] transition-colors duration-300 group/design-root overflow-x-hidden" style={{ fontFamily: `"Work Sans", "Noto Sans", sans-serif` }}>
             <div className="layout-container flex h-full grow flex-col">
                 <div className="px-40 flex flex-1 justify-center py-5">
                     {wallet.publicKey ? 
                         <div className="layout-content-container flex flex-col w-[512px] max-w-[512px] py-5 max-w-[960px] flex-1">
                             <div className="flex flex-wrap justify-between gap-3 p-4">
                                 <div className="flex min-w-72 flex-col gap-3">
-                                    <p className="text-white tracking-light text-[32px] font-bold leading-tight">Create Token</p>
+                                    <p className="text-gray-900 dark:text-white tracking-light text-[32px] font-bold leading-tight">Create Token</p>
                                 </div>
                             </div>
     
                             <div className="flex flex-wrap items-end gap-4 px-4 py-3">
                                 <label className="flex flex-col min-w-40 flex-1">
-                                    <p className="text-white text-base font-medium leading-normal pb-2">Name</p>
+                                    <p className="text-gray-900 dark:text-white text-base font-medium leading-normal pb-2">Name</p>
                                     <input
                                         placeholder="Name"
-                                        className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-white focus:outline-0 focus:ring-0 border border-[#3c4753] bg-[#1c2126] focus:border-[#3c4753] h-14 placeholder:text-[#9dabb8] p-[15px] text-base font-normal leading-normal"
+                                        className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl
+                                            bg-white dark:bg-[#1c2126]
+                                            text-gray-900 dark:text-white
+                                            border border-gray-300 dark:border-[#3c4753]
+                                            placeholder:text-gray-400 dark:placeholder:text-[#9dabb8]
+                                            focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500
+                                            h-14 p-[15px] text-base font-normal leading-normal
+                                            transition-colors duration-300"
                                         id="name"
                                         onChange={handleNameInputChange}
                                     />
                                 </label>
     
                                 <label className="flex flex-col min-w-40 flex-1">
-                                    <p className="text-white text-base font-medium leading-normal pb-2">Symbol</p>
+                                    <p className="text-gray-900 dark:text-white text-base font-medium leading-normal pb-2">Symbol</p>
                                     <input
                                         placeholder="Symbol"
-                                        className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-white focus:outline-0 focus:ring-0 border border-[#3c4753] bg-[#1c2126] focus:border-[#3c4753] h-14 placeholder:text-[#9dabb8] p-[15px] text-base font-normal leading-normal"
+                                        className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl
+                                            bg-white dark:bg-[#1c2126]
+                                            text-gray-900 dark:text-white
+                                            border border-gray-300 dark:border-[#3c4753]
+                                            placeholder:text-gray-400 dark:placeholder:text-[#9dabb8]
+                                            focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500
+                                            h-14 p-[15px] text-base font-normal leading-normal
+                                            transition-colors duration-300"
                                         id="symbol"
                                         onChange={handleSymbolInputChange}
                                     />
@@ -243,20 +257,34 @@ const CreateToken = () => {
     
                             <div className="flex flex-wrap items-end gap-4 px-4 py-3">
                                 <label className="flex flex-col min-w-40 flex-1">
-                                    <p className="text-white text-base font-medium leading-normal pb-2">Decimals</p>
+                                    <p className="text-gray-900 dark:text-white text-base font-medium leading-normal pb-2">Decimals</p>
                                     <input
                                         placeholder="Decimals"
-                                        className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-white focus:outline-0 focus:ring-0 border border-[#3c4753] bg-[#1c2126] focus:border-[#3c4753] h-14 placeholder:text-[#9dabb8] p-[15px] text-base font-normal leading-normal"
+                                        className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl
+                                            bg-white dark:bg-[#1c2126]
+                                            text-gray-900 dark:text-white
+                                            border border-gray-300 dark:border-[#3c4753]
+                                            placeholder:text-gray-400 dark:placeholder:text-[#9dabb8]
+                                            focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500
+                                            h-14 p-[15px] text-base font-normal leading-normal
+                                            transition-colors duration-300"
                                         id="decimals"
                                         onChange={handleDecimalsInputChange}
                                     />
                                 </label>
     
                                 <label className="flex flex-col min-w-40 flex-1">
-                                    <p className="text-white text-base font-medium leading-normal pb-2">Supply</p>
+                                    <p className="text-gray-900 dark:text-white text-base font-medium leading-normal pb-2">Supply</p>
                                     <input
                                         placeholder="Supply"
-                                        className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-white focus:outline-0 focus:ring-0 border border-[#3c4753] bg-[#1c2126] focus:border-[#3c4753] h-14 placeholder:text-[#9dabb8] p-[15px] text-base font-normal leading-normal"
+                                        className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl
+                                            bg-white dark:bg-[#1c2126]
+                                            text-gray-900 dark:text-white
+                                            border border-gray-300 dark:border-[#3c4753]
+                                            placeholder:text-gray-400 dark:placeholder:text-[#9dabb8]
+                                            focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500
+                                            h-14 p-[15px] text-base font-normal leading-normal
+                                            transition-colors duration-300"
                                         id="supply"
                                         onChange={handleSupplyInputChange}
                                     />
@@ -264,18 +292,32 @@ const CreateToken = () => {
                             </div>
     
                             <div className="flex flex-col p-4">
-                                <p className="text-white text-base font-medium leading-normal pb-2">Image</p>
-                                <div className="flex flex-col items-center gap-6 rounded-xl border-2 border-dashed border-[#344d65] px-6 py-14">
-                                    <input type="file" onChange={handleImageChange} className="flex cursor-pointer items-center justify-center overflow-hidden rounded-xl px-4 bg-[#243647] text-white text-sm font-bold leading-normal tracking-[0.015em] py-2"/>
+                                <p className="text-gray-900 dark:text-white text-base font-medium leading-normal pb-2">Image</p>
+                                <div className="flex flex-col items-center gap-6 rounded-xl border-2 border-dashed 
+                                    border-gray-300 dark:border-gray-600 
+                                    bg-gray-50 dark:bg-gray-800 
+                                    px-6 py-14 transition-colors duration-300">
+                                    <input
+                                        type="file"
+                                        onChange={handleImageChange}
+                                        className="flex cursor-pointer items-center justify-center overflow-hidden rounded-xl px-4 bg-gray-100 dark:bg-[#111418] text-gray-900 dark:text-white text-sm font-bold leading-normal tracking-[0.015em] py-2"
+                                    />
                                 </div>
                             </div>
     
                             <div className="flex flex-wrap items-end gap-4 px-4 py-3">
                                 <label className="flex flex-col min-w-40 flex-1">
-                                    <p className="text-white text-base font-medium leading-normal pb-2">Description</p>
+                                    <p className="text-gray-900 dark:text-white text-base font-medium leading-normal pb-2">Description</p>
                                     <textarea
                                         placeholder="Description"
-                                        className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-white focus:outline-0 focus:ring-0 border border-[#3c4753] bg-[#1c2126] focus:border-[#3c4753] h-14 placeholder:text-[#9dabb8] p-[15px] text-base font-normal leading-normal"
+                                        className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl
+                                            bg-white dark:bg-[#1c2126]
+                                            text-gray-900 dark:text-white
+                                            border border-gray-300 dark:border-[#3c4753]
+                                            placeholder:text-gray-400 dark:placeholder:text-[#9dabb8]
+                                            focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500
+                                            p-[15px] text-base font-normal leading-normal
+                                            transition-colors duration-300"
                                         id="description"
                                         rows={5}
                                         onChange={handleDescriptionInputChange}
@@ -283,58 +325,34 @@ const CreateToken = () => {
                                 </label> 
                             </div>
     
-                            <p className="text-white px-4">{signature ? `Signature: ${signature}` : null}</p>
+                            <p className="text-gray-900 dark:text-white px-4">{signature ? `Signature: ${signature}` : null}</p>
     
-                            <h5 className="text-white tracking-light text-[26px] font-bold leading-tight p-4">Revoke Authorities</h5>
+                            <h5 className="text-gray-900 dark:text-white tracking-light text-[26px] font-bold leading-tight p-4">Revoke Authorities</h5>
     
-                            <div className="m-4" style={{
-                                display: "flex",
-                                gap: "20px",
-                                padding: "15px",
-                                backgroundColor: "#f9f9f9",
-                                borderRadius: "8px",
-                                border: "1px solid #ddd",
-                            }}>
-                                <label style={{
-                                    display: "flex",
-                                    alignItems: "center",
-                                    gap: "10px",
-                                    fontSize: "17px",
-                                    fontWeight: "500",
-                                    color: "#333",
-                                    cursor: 'pointer'
-                                }}>
+                            <div className="m-4 flex gap-5 p-4 rounded-xl border 
+                            bg-white dark:bg-gray-800 
+                            border-gray-300 dark:border-gray-700 
+                            transition-colors duration-300">
+                                <label className="flex items-center gap-2 text-base font-medium text-gray-800 dark:text-gray-200 cursor-pointer">
                                     <input type="checkbox" id="revokeMintAuthority" /> Mint Authority
                                 </label>
     
-                                <label style={{
-                                    display: "flex",
-                                    alignItems: "center",
-                                    gap: "10px",
-                                    fontSize: "17px",
-                                    fontWeight: "500",
-                                    color: "#333",
-                                    cursor: 'pointer'
-                                }}>
+                                <label className="flex items-center gap-2 text-base font-medium text-gray-800 dark:text-gray-200 cursor-pointer">
                                     <input type="checkbox" id="revokeFreezeAuthority" /> Freeze Authority
                                 </label>
     
-                                <label style={{
-                                    display: "flex",
-                                    alignItems: "center",
-                                    gap: "10px",
-                                    fontSize: "17px",
-                                    fontWeight: "500",
-                                    color: "#333",
-                                    cursor: 'pointer'
-                                }}>
+                                <label className="flex items-center gap-2 text-base font-medium text-gray-800 dark:text-gray-200 cursor-pointer">
                                     <input type="checkbox" id="revokeUpdateAuthority" /> Update Authority
                                 </label>
                             </div>
     
                             <div className="flex px-4 py-3 justify-end">
                                 <button
-                                    className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-4 bg-[#1980e6] text-white text-sm font-bold leading-normal tracking-[0.015em]"
+                                    className="flex min-w-[84px] max-w-[480px] items-center justify-center 
+                                        overflow-hidden rounded-full h-10 px-4 
+                                        bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600
+                                        text-white text-sm font-bold
+                                        transition-all duration-300"
                                     disabled={loading}
                                     onClick={handleImageUpload}
                                 >
