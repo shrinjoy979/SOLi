@@ -58,15 +58,18 @@ const SeedPhrase = () => {
   }, []);
 
   return (
-    <div className="relative flex size-full min-h-screen flex-col bg-[#111418] dark group/design-root overflow-x-hidden" style={{ fontFamily: `"Work Sans", "Noto Sans", sans-serif` }}>
+    <div 
+        className="relative flex min-h-screen flex-col bg-gray-50 dark:bg-gray-900 transition-colors duration-300 overflow-x-hidden"
+        style={{ fontFamily: `"Work Sans", "Noto Sans", sans-serif` }}
+    >
         <div className="layout-container flex h-full grow flex-col">
             <div className="px-40 flex flex-1 justify-center py-5">
                 <div className="layout-content-container flex flex-col w-[512px] max-w-[512px] py-5 max-w-[960px] flex-1">
                     <div className="text-center space-y-4">
-                        <h1 className="text-2xl font-semibold text-white">
+                        <h1 className="text-2xl font-semibold text-gray-900 dark:text-white">
                             Your Recovery Phrase
                         </h1>
-                        <p className="text-sm text-gray-400">
+                        <p className="text-sm text-gray-600 dark:text-gray-400">
                             Write these 12 words down in order and keep them safe.
                         </p>
 
@@ -79,7 +82,11 @@ const SeedPhrase = () => {
                                 {mnemonic.split(" ").map((word, index) => (
                                     <div
                                         key={index}
-                                        className="bg-gray-800 text-white text-sm px-3 py-2 rounded-lg text-center font-medium"
+                                        className="bg-white dark:bg-gray-800 
+                                            text-gray-900 dark:text-white 
+                                            text-sm px-3 py-2 rounded-lg text-center font-medium 
+                                            border border-gray-200 dark:border-gray-700 
+                                            transition-colors duration-300"
                                     >
                                         {index + 1}. {word}
                                     </div>
@@ -88,7 +95,7 @@ const SeedPhrase = () => {
 
                             {!isHovering && (
                                 <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                                    <div className="bg-black/70 p-5 rounded-full">
+                                    <div className="bg-black/60 dark:bg-black/70 p-5 rounded-full">
                                         <FiEyeOff size={32} className="text-white" />
                                     </div>
                                 </div>
@@ -98,7 +105,11 @@ const SeedPhrase = () => {
                         <div className="flex justify-center gap-4 mt-6">
                             <button
                                 onClick={copySeed}
-                                className="px-6 py-2 bg-gray-700 hover:bg-gray-600 rounded-lg text-white transition"
+                                className="px-6 py-2 
+                                    bg-gray-200 hover:bg-gray-300 
+                                    dark:bg-gray-700 dark:hover:bg-gray-600 
+                                    text-gray-900 dark:text-white 
+                                    rounded-lg transition-colors duration-300"
                             >
                                 Copy
                             </button>
@@ -114,8 +125,12 @@ const SeedPhrase = () => {
                         </div>
                     </div>
 
-                    <div className="flex justify-between items-center border-t border-gray-700 pt-6 mt-4">
-                        <h2 className="text-lg font-semibold text-white">Wallets</h2>
+                    <div
+                        className="flex justify-between items-center 
+                        border-t border-gray-300 dark:border-gray-700 
+                        pt-6 mt-4 transition-colors duration-300"
+                    >
+                        <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Wallets</h2>
 
                         <div className="flex gap-3">
                             <div className="flex gap-4">
@@ -134,7 +149,7 @@ const SeedPhrase = () => {
                                 <button
                                     onClick={clearWallets}
                                     className="px-5 py-2.5 rounded-xl font-medium
-                                            bg-[#1f2937] text-red-400 border border-red-500/30
+                                            bg-gray-200 dark:bg-gray-800 text-red-400 border border-red-500/30
                                             hover:bg-red-600 hover:text-white hover:border-red-600
                                             hover:scale-105 active:scale-95
                                             transition-all duration-300 ease-in-out"
@@ -149,10 +164,13 @@ const SeedPhrase = () => {
                         {wallets.map((wallet, index) => (
                             <div
                                 key={index}
-                                className="bg-[#1f2937] rounded-2xl p-6 relative space-y-5 mt-4"
+                                className="bg-white dark:bg-gray-800 
+                                border border-gray-200 dark:border-gray-700
+                                rounded-2xl p-6 relative space-y-5 mt-4 
+                                transition-colors duration-300"
                             >
                                 <div className="flex justify-between items-center">
-                                    <h3 className="text-white font-medium">
+                                    <h3 className="text-gray-900 dark:text-white font-medium">
                                         Wallet {index + 1}
                                     </h3>
 
@@ -163,23 +181,38 @@ const SeedPhrase = () => {
                                 </div>
 
                                 <div>
-                                    <p className="text-gray-400 text-sm mb-1">Public Key</p>
-                                    <div className="bg-black/40 p-3 rounded-lg text-white text-sm break-all">
+                                    <p className="text-gray-600 dark:text-gray-400 text-sm mb-1">Public Key</p>
+                                    <div
+                                        className="bg-gray-100 dark:bg-black/40 
+                                        text-gray-900 dark:text-white 
+                                        p-3 rounded-lg text-sm break-all 
+                                        transition-colors duration-300"
+                                    >
                                         {wallet.publicKey}
                                     </div>
                                 </div>
 
                                 <div>
-                                    <p className="text-gray-400 text-sm mb-1">Private Key</p>
+                                    <p className="text-gray-600 dark:text-gray-400 text-sm mb-1">Private Key</p>
 
-                                    <div className="relative bg-black/40 p-3 rounded-lg text-white text-sm break-all pr-10">
+                                    <div
+                                        className="relative 
+                                        bg-gray-100 dark:bg-black/40
+                                        text-gray-900 dark:text-white
+                                        p-3 rounded-lg text-sm break-all pr-10
+                                        border border-gray-300 dark:border-gray-700
+                                        transition-colors duration-300"
+                                    >
                                         {visibleKeys[index] ? wallet.privateKey : "•".repeat(64)}
 
                                         <button
                                             onClick={() =>
                                                 setVisibleKeys((prev) => ({...prev, [index]: !prev[index], }))
                                             }
-                                            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white"
+                                            className="absolute right-3 top-1/2 -translate-y-1/2 
+                                            text-gray-600 dark:text-gray-400 
+                                            hover:text-gray-900 dark:hover:text-white 
+                                            transition-colors duration-200"
                                         >
                                             <FiEyeOff size={18} />
                                         </button>
