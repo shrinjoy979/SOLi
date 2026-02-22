@@ -157,22 +157,29 @@ const CustomSwap = () => {
     return (
         <>
             <div
-                className="relative flex size-full min-h-screen flex-col bg-[#111418] dark group/design-root overflow-x-hidden"
+                className="relative flex min-h-screen flex-col bg-gray-50 dark:bg-gray-900 transition-colors duration-300 overflow-x-hidden"
             >
                 <div className="layout-container flex h-full grow flex-col">
                     <div className="px-40 flex flex-1 justify-center py-5">
                         <div className="layout-content-container flex flex-col w-[512px] max-w-[512px] py-5 max-w-[960px] flex-1">
-                            <h1 className="text-white text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 text-left pb-3 pt-5">Swap</h1>
+                            <h1 className="text-gray-900 dark:text-white text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 text-left pb-3 pt-5">Swap</h1>
                             <div className="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
                                 <label className="flex flex-col min-w-40 flex-1">
                                     <div className="flex">
-                                        <p className="text-white text-base font-medium leading-normal pb-2 pr-2">From</p>
+                                        <p className="text-gray-800 dark:text-gray-200 text-base font-medium leading-normal pb-2 pr-2">From</p>
                                         <img src={fromAsset?.logoURI} alt="" className="max-w-[35px] max-h-[35px] rounded-full relative bottom-[8px]" />
                                     </div>
                                     <select
                                         value={fromAsset?.symbol}
                                         onChange={handleFromAssetChange}
-                                        className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-white focus:outline-0 focus:ring-0 border-none bg-[#293038] focus:border-none h-14 bg-[image:--select-button-svg] placeholder:text-[#9dabb8] p-4 text-base font-normal leading-normal"
+                                        className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden 
+                                            rounded-xl 
+                                            text-gray-900 dark:text-white
+                                            bg-white dark:bg-gray-800
+                                            border border-gray-300 dark:border-gray-700
+                                            focus:outline-none focus:ring-2 focus:ring-indigo-500
+                                            h-14 p-4 text-base font-normal leading-normal
+                                            transition-colors duration-300"
                                     >
                                         {availableTokens.map((token) => (
                                             <option key={token.address} value={token?.symbol}>
@@ -184,26 +191,41 @@ const CustomSwap = () => {
                             </div>
                             <div className="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
                                 <label className="flex flex-col min-w-40 flex-1">
-                                    <p className="text-white text-base font-medium leading-normal pb-2">Amount</p>
+                                    <p className="text-gray-800 dark:text-gray-200 text-base font-medium leading-normal pb-2">Amount</p>
                                     <input
                                         type="number"
                                         value={fromAmount}
                                         onChange={handleFromValueChange}
                                         placeholder="0.0"
-                                        className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-white focus:outline-0 focus:ring-0 border-none bg-[#293038] focus:border-none h-14 placeholder:text-[#9dabb8] p-4 text-base font-normal leading-normal"
+                                        className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden 
+                                            rounded-xl 
+                                            text-gray-900 dark:text-white
+                                            bg-white dark:bg-gray-800
+                                            border border-gray-300 dark:border-gray-700
+                                            placeholder:text-gray-400 dark:placeholder:text-gray-500
+                                            focus:outline-none focus:ring-2 focus:ring-indigo-500
+                                            h-14 p-4 text-base font-normal leading-normal
+                                            transition-colors duration-300"
                                     />
                                 </label>
                             </div>
                             <div className="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
                                 <label className="flex flex-col min-w-40 flex-1">
                                     <div className="flex">
-                                        <p className="text-white text-base font-medium leading-normal pb-2 pr-2">To</p>
+                                        <p className="text-gray-800 dark:text-gray-200 text-base font-medium leading-normal pb-2 pr-2">To</p>
                                         <img src={toAsset?.logoURI} alt="" className="max-w-[35px] max-h-[35px] rounded-full relative bottom-[8px]" />
                                     </div>
                                     <select
                                         value={toAsset?.symbol}
                                         onChange={handleToAssetChange}
-                                        className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-white focus:outline-0 focus:ring-0 border-none bg-[#293038] focus:border-none h-14 bg-[image:--select-button-svg] placeholder:text-[#9dabb8] p-4 text-base font-normal leading-normal"
+                                        className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden 
+                                            rounded-xl 
+                                            text-gray-900 dark:text-white
+                                            bg-white dark:bg-gray-800
+                                            border border-gray-300 dark:border-gray-700
+                                            focus:outline-none focus:ring-2 focus:ring-indigo-500
+                                            h-14 p-4 text-base font-normal leading-normal
+                                            transition-colors duration-300"
                                     >
                                         {availableTokens.map((token) => (
                                             <option key={token.address} value={token.symbol}>
@@ -215,12 +237,20 @@ const CustomSwap = () => {
                             </div>
                             <div className="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
                                 <label className="flex flex-col min-w-40 flex-1">
-                                    <p className="text-white text-base font-medium leading-normal pb-2">Amount</p>
+                                    <p className="text-gray-800 dark:text-gray-200 text-base font-medium leading-normal pb-2">Amount</p>
                                     <input
                                         type="number"
                                         value={toAmount}
                                         placeholder="0.0"
-                                        className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-white focus:outline-0 focus:ring-0 border-none bg-[#293038] focus:border-none h-14 placeholder:text-[#9dabb8] p-4 text-base font-normal leading-normal"
+                                        className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden 
+                                            rounded-xl 
+                                            text-gray-900 dark:text-white
+                                            bg-white dark:bg-gray-800
+                                            border border-gray-300 dark:border-gray-700
+                                            placeholder:text-gray-400 dark:placeholder:text-gray-500
+                                            focus:outline-none focus:ring-2 focus:ring-indigo-500
+                                            h-14 p-4 text-base font-normal leading-normal
+                                            transition-colors duration-300"
                                         readOnly
                                     />
                             </label>
@@ -228,7 +258,11 @@ const CustomSwap = () => {
                             <div className="flex justify-stretch">
                                 <div className="flex flex-1 gap-3 flex-wrap px-4 py-3 justify-end">
                                     <button
-                                        className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-4 bg-[#1980e6] text-white text-sm font-bold leading-normal tracking-[0.015em]"
+                                        className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden 
+                                            rounded-xl h-10 px-4 bg-indigo-600 hover:bg-indigo-700
+                                            dark:bg-indigo-500 dark:hover:bg-indigo-600 
+                                            text-white transition-colors duration-300 text-sm 
+                                            font-bold leading-normal tracking-[0.015em]"
                                         onClick={signAndSendTransaction}
                                         disabled={toAsset?.address === fromAsset?.address}
                                     >
