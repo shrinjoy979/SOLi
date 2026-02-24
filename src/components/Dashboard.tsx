@@ -12,7 +12,7 @@ const Dashboard = () => {
           <div className="w-full flex flex-col lg:flex-row gap-6 px-4 sm:px-6 md:px-10 py-6">
             {wallet.publicKey ?
               <>
-                <div className="w-full lg:w-80 shrink-0">
+                <div className="hidden lg:block w-full lg:w-80 shrink-0">
                   <div className="flex flex-col bg-white dark:bg-[#111418] rounded-xl p-4">
                     <div className="flex flex-col gap-4">
                       <div className="flex flex-col gap-2">
