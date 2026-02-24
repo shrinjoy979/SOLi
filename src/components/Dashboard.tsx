@@ -7,13 +7,13 @@ const Dashboard = () => {
   const wallet = useWallet();
 
   return (
-    <div className="relative flex size-full min-h-screen flex-col bg-gray-100 dark:bg-[#111418] transition-colors duration-300 group/design-root overflow-x-hidden" style={{ fontFamily: `"Work Sans", "Noto Sans", sans-serif` }}>
+    <div className="min-h-screen w-full bg-gray-100 dark:bg-[#111418] transition-colors duration-300 overflow-x-hidden" style={{ fontFamily: `"Work Sans", "Noto Sans", sans-serif` }}>
         <div className="layout-container flex h-full grow flex-col">
-          <div className="gap-1 px-6 flex flex-1 justify-center py-5">
+          <div className="w-full flex flex-col lg:flex-row gap-6 px-4 sm:px-6 md:px-10 py-6">
             {wallet.publicKey ?
               <>
-                <div className="layout-content-container flex flex-col w-80">
-                  <div className="flex h-full min-h-[700px] flex-col justify-between bg-white dark:bg-[#111418] transition-colors duration-300 p-4">
+                <div className="w-full lg:w-80 shrink-0">
+                  <div className="flex flex-col bg-white dark:bg-[#111418] rounded-xl p-4">
                     <div className="flex flex-col gap-4">
                       <div className="flex flex-col gap-2">
                         <NavLink
@@ -124,7 +124,9 @@ const Dashboard = () => {
                     </div>
                   </div>
                 </div>
-                <Transactions />
+                <div className="w-full flex-1">
+                  <Transactions />
+                </div>
               </>
             :
             <>

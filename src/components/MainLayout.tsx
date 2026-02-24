@@ -12,7 +12,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children, darkMode, setDarkMode
   return (
     <div>
       <Header darkMode={darkMode} setDarkMode={setDarkMode} />
-        <main className="min-h-[calc(100vh-120px)] px-4 sm:px-6">
+        <main className="min-h-[calc(100vh-120px)]">
           {children}
         </main>
       <Footer />
