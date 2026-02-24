@@ -31,7 +31,7 @@ const Header = ({ darkMode, setDarkMode }: HeaderProps) => {
 
   return (
     <header
-        className="flex items-center justify-between px-10 py-4 border-b bg-white border-gray-200 dark:bg-[#111418] dark:border-[#293038] transition-colors duration-300"
+      className="flex items-center justify-between px-4 sm:px-6 md:px-10 py-4 border-b bg-white border-gray-200 dark:bg-[#111418] dark:border-[#293038] transition-colors duration-300"
     >
       <Link to="/">
         <h2 className="text-lg font-bold tracking-tight text-black dark:text-white">
@@ -39,8 +39,8 @@ const Header = ({ darkMode, setDarkMode }: HeaderProps) => {
         </h2>
       </Link>
 
-      <div className="flex items-center gap-8">
-        <div className="flex items-center gap-8">
+      <div className="hidden md:flex items-center gap-6">
+        <div className="flex items-center gap-3 sm:gap-4">
           {navItems.map((item) => (
             <NavLink
               key={item.path}
