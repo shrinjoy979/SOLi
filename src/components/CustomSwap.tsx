@@ -1,6 +1,5 @@
 import { useWallet } from '@solana/wallet-adapter-react';
 import { VersionedTransaction, Connection } from '@solana/web3.js';
-import axios from 'axios';
 import React, { useState, useEffect, useCallback } from 'react';
 import { toast } from 'react-toastify';
 
@@ -13,7 +12,7 @@ interface TokenInfo {
         coingeckoId: string;
     };
     freeze_authority: string | null;
-    logoURI: string;
+    icon: string;
     mint_authority: string | null;
     minted_at: string | null;
     permanent_delegate: string | null;
@@ -144,15 +143,41 @@ const CustomSwap = () => {
         }
     }
 
-    useEffect(()=>{
-        async function getAllTokens(){
-            const response  = await axios.get('https://tokens.jup.ag/tokens?tags=verified');
-            setAvailableTokens(response.data);
-            setFromAsset(response.data[0]);
-            setToAsset(response.data[1]);
+    useEffect(() => {
+        async function getTopTokens() {
+            try {
+                const response = await fetch(
+                    "https://api.jup.ag/tokens/v2/toptraded/5m",
+                    {
+                        method: "GET",
+                        headers: {
+                            "x-api-key": import.meta.env.VITE_JUP_API_KEY,
+                        },
+                    }
+                );
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+
+                const data = await response.json();
+
+                const formattedTokens = data.map((token: any) => ({
+                    name: token.name,
+                    symbol: token.symbol,
+                    address: token.address,
+                    icon: token.icon,
+                }));
+
+                setAvailableTokens(formattedTokens);
+
+            } catch (error) {
+                console.error("Error fetching tokens:", error);
+            }
         }
-        getAllTokens();
-    },[])
+
+        getTopTokens();
+    }, []);
 
     return (
         <>
@@ -167,7 +192,7 @@ const CustomSwap = () => {
                                 <label className="flex flex-col min-w-40 flex-1">
                                     <div className="flex">
                                         <p className="text-gray-800 dark:text-gray-200 text-base font-medium leading-normal pb-2 pr-2">From</p>
-                                        <img src={fromAsset?.logoURI} alt="" className="max-w-[35px] max-h-[35px] rounded-full relative bottom-[8px]" />
+                                        <img src={fromAsset?.icon} alt="" className="max-w-[35px] max-h-[35px] rounded-full relative bottom-[8px]" />
                                     </div>
                                     <select
                                         value={fromAsset?.symbol}
@@ -213,7 +238,7 @@ const CustomSwap = () => {
                                 <label className="flex flex-col min-w-40 flex-1">
                                     <div className="flex">
                                         <p className="text-gray-800 dark:text-gray-200 text-base font-medium leading-normal pb-2 pr-2">To</p>
-                                        <img src={toAsset?.logoURI} alt="" className="max-w-[35px] max-h-[35px] rounded-full relative bottom-[8px]" />
+                                        <img src={toAsset?.icon} alt="" className="max-w-[35px] max-h-[35px] rounded-full relative bottom-[8px]" />
                                     </div>
                                     <select
                                         value={toAsset?.symbol}

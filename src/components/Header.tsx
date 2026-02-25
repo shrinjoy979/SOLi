@@ -131,7 +131,7 @@ const Header = ({ darkMode, setDarkMode }: HeaderProps) => {
             className="flex items-center gap-2 mt-4 text-gray-700 dark:text-gray-300"
           >
             {darkMode ? <FiMoon /> : <FiSun />}
-            Toggle Theme
+            Theme
           </button>
 
           <WalletMultiButton />
