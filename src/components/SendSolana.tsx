@@ -40,12 +40,9 @@ const SendTokens = () => {
   }
 
   return (
-    <div
-      className="relative flex size-full min-h-screen flex-col bg-gray-100 dark:bg-[#111418] transition-colors duration-300 group/design-root overflow-x-hidden"
-      style={{ fontFamily: `"Work Sans", "Noto Sans", sans-serif` }}
-    >
+    <div className="relative flex min-h-screen flex-col bg-gray-50 dark:bg-gray-900 transition-colors duration-300 overflow-x-hidden" style={{ fontFamily: `"Work Sans", "Noto Sans", sans-serif` }}>
       <div className="layout-container flex h-full grow flex-col">
-        <div className="px-40 flex flex-1 justify-center py-5">
+        <div className="flex flex-1 justify-center px-4 sm:px-6 md:px-10 py-6">
           {wallet.publicKey ? (
             <div className="layout-content-container flex flex-col w-[512px] max-w-[960px] flex-1 py-5">
               <div className="flex flex-wrap justify-between gap-3 p-4">
