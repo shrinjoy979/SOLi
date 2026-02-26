@@ -98,7 +98,9 @@ const Header = ({ darkMode, setDarkMode }: HeaderProps) => {
 
         <div className="absolute left-0 top-0 h-full w-72 bg-white dark:bg-[#111418] shadow-xl p-6 flex flex-col gap-6">
           <div className="flex justify-between items-center">
-            <h3 className="text-lg font-semibold dark:text-white">SOLi</h3>
+            <Link to="/">
+              <h3 className="text-lg font-semibold dark:text-white">SOLi</h3>
+            </Link>
             <button
               onClick={() => setMenuOpen(false)}
               className="text-gray-800 dark:text-white"
