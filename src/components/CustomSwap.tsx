@@ -148,7 +148,7 @@ const CustomSwap = () => {
                                             focus:outline-none focus:ring-2 focus:ring-indigo-500
                                             transition-colors duration-300"
                                         >
-                                            {availableTokens.map((token, index) => (
+                                            {availableTokens?.map((token, index) => (
                                                 <option key={index} value={token.symbol}>
                                                     {token.symbol}
                                                 </option>
@@ -201,7 +201,7 @@ const CustomSwap = () => {
                                             focus:outline-none focus:ring-2 focus:ring-indigo-500
                                             transition-colors duration-300"
                                         >
-                                            {availableTokens.map((token, index) => (
+                                            {availableTokens?.map((token, index) => (
                                                 <option key={index} value={token.symbol}>
                                                     {token.symbol}
                                                 </option>
