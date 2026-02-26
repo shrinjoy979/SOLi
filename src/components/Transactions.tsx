@@ -35,7 +35,12 @@ const Transactions = () => {
             {signatures.map((sig) => (
                 <li
                   key={sig.signature}
-                  className="bg-white dark:bg-[#1c2126] 
+                  onClick={() => window.open(
+                    `https://explorer.solana.com/tx/${sig.signature}?cluster=devnet`,
+                    "_blank",
+                    "noopener,noreferrer"
+                  )}
+                  className="bg-white dark:bg-[#1c2126] cursor-pointer 
                             rounded-xl p-4 mb-4 
                             shadow-sm 
                             border border-gray-200 dark:border-gray-700"
