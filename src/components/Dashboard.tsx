@@ -7,9 +7,9 @@ const Dashboard = () => {
   const wallet = useWallet();
 
   return (
-    <div className="min-h-screen w-full bg-gray-100 dark:bg-[#111418] transition-colors duration-300 overflow-x-hidden" style={{ fontFamily: `"Work Sans", "Noto Sans", sans-serif` }}>
+    <div className="relative flex min-h-screen flex-col bg-gray-50 dark:bg-gray-900 transition-colors duration-300 overflow-x-hidden" style={{ fontFamily: `"Work Sans", "Noto Sans", sans-serif` }}>
         <div className="layout-container flex h-full grow flex-col">
-          <div className="w-full flex flex-col lg:flex-row gap-6 px-4 sm:px-6 md:px-10 py-6">
+          <div className="flex flex-1 justify-center px-4 sm:px-6 md:px-10 py-6">
             {wallet.publicKey ?
               <>
                 <div className="hidden lg:block w-full lg:w-80 shrink-0">

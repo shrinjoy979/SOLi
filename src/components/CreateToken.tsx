@@ -234,91 +234,93 @@ const CreateToken = () => {
 
     return (
         <div
-            className="min-h-screen w-full bg-gray-100 dark:bg-[#111418] transition-colors duration-300 overflow-x-hidden"
+            className="relative flex min-h-screen flex-col bg-gray-50 dark:bg-gray-900 transition-colors duration-300 overflow-x-hidden"
             style={{ fontFamily: `"Work Sans", "Noto Sans", sans-serif` }}
         >
-            <div className="flex flex-1 justify-center px-4 sm:px-6 md:px-10 py-6">
-                {wallet.publicKey ? (
-                    <div className="w-full max-w-md sm:max-w-lg md:max-w-2xl lg:max-w-3xl flex flex-col gap-6">
-                        <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">
-                            Create Token
-                        </h1>
+            <div className="layout-container flex h-full grow flex-col">
+                <div className="flex flex-1 justify-center px-4 sm:px-6 md:px-10 py-6">
+                    {wallet.publicKey ? (
+                        <div className="w-full max-w-md sm:max-w-lg md:max-w-2xl lg:max-w-3xl flex flex-col gap-6">
+                            <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">
+                                Create Token
+                            </h1>
 
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <InputField label="Name" onChange={handleNameInputChange} />
-                            <InputField label="Symbol" onChange={handleSymbolInputChange} />
-                        </div>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <InputField label="Name" onChange={handleNameInputChange} />
+                                <InputField label="Symbol" onChange={handleSymbolInputChange} />
+                            </div>
 
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <InputField label="Decimals" onChange={handleDecimalsInputChange} />
-                            <InputField label="Supply" onChange={handleSupplyInputChange} />
-                        </div>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <InputField label="Decimals" onChange={handleDecimalsInputChange} />
+                                <InputField label="Supply" onChange={handleSupplyInputChange} />
+                            </div>
 
-                        <div>
-                            <p className="text-gray-900 dark:text-white font-medium mb-2">Image</p>
-                            <div className="flex flex-col items-center gap-4 rounded-xl border-2 border-dashed 
-                                border-gray-300 dark:border-gray-600 
-                                bg-gray-50 dark:bg-gray-800 
-                                px-4 py-10 sm:py-14">
-                                    <input
-                                        type="file"
-                                        onChange={handleImageChange}
-                                        className="flex cursor-pointer items-center justify-center overflow-hidden rounded-xl px-4 bg-gray-100 dark:bg-[#111418] text-gray-900 dark:text-white text-sm font-bold leading-normal tracking-[0.015em] py-2"
+                            <div>
+                                <p className="text-gray-900 dark:text-white font-medium mb-2">Image</p>
+                                <div className="flex flex-col items-center gap-4 rounded-xl border-2 border-dashed 
+                                    border-gray-300 dark:border-gray-600 
+                                    bg-gray-50 dark:bg-gray-800 
+                                    px-4 py-10 sm:py-14">
+                                        <input
+                                            type="file"
+                                            onChange={handleImageChange}
+                                            className="flex cursor-pointer items-center justify-center overflow-hidden rounded-xl px-4 bg-gray-100 dark:bg-[#111418] text-gray-900 dark:text-white text-sm font-bold leading-normal tracking-[0.015em] py-2"
+                                        />
+                                </div>
+                            </div>
+
+                            <div>
+                                <p className="text-gray-900 dark:text-white font-medium mb-2">
+                                    Description
+                                </p>
+                                <textarea
+                                    placeholder="Description"
+                                    rows={4}
+                                    onChange={handleDescriptionInputChange}
+                                    className="w-full rounded-xl
+                                        bg-white dark:bg-[#1c2126]
+                                        text-gray-900 dark:text-white
+                                        border border-gray-300 dark:border-[#3c4753]
+                                        focus:outline-none focus:ring-2 focus:ring-indigo-500
+                                        p-4 transition-colors duration-300"
                                     />
                             </div>
-                        </div>
 
-                        <div>
-                            <p className="text-gray-900 dark:text-white font-medium mb-2">
-                                Description
-                            </p>
-                            <textarea
-                                placeholder="Description"
-                                rows={4}
-                                onChange={handleDescriptionInputChange}
-                                className="w-full rounded-xl
-                                    bg-white dark:bg-[#1c2126]
-                                    text-gray-900 dark:text-white
-                                    border border-gray-300 dark:border-[#3c4753]
-                                    focus:outline-none focus:ring-2 focus:ring-indigo-500
-                                    p-4 transition-colors duration-300"
-                                />
-                        </div>
+                            {signature && (
+                                <p className="text-sm break-all text-gray-700 dark:text-gray-300">
+                                    Signature: {signature}
+                                </p>
+                            )}
 
-                        {signature && (
-                            <p className="text-sm break-all text-gray-700 dark:text-gray-300">
-                                Signature: {signature}
-                            </p>
-                        )}
+                            <div>
+                                <h3 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white mb-3">
+                                    Revoke Authorities
+                                </h3>
 
-                        <div>
-                            <h3 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white mb-3">
-                                Revoke Authorities
-                            </h3>
+                                <div className="flex flex-col sm:flex-row gap-4 p-4 rounded-xl border bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-700">
+                                <Checkbox label="Mint Authority" id="revokeMintAuthority" />
+                                <Checkbox label="Freeze Authority" id="revokeFreezeAuthority" />
+                                <Checkbox label="Update Authority" id="revokeUpdateAuthority" />
+                                </div>
+                            </div>
 
-                            <div className="flex flex-col sm:flex-row gap-4 p-4 rounded-xl border bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-700">
-                            <Checkbox label="Mint Authority" id="revokeMintAuthority" />
-                            <Checkbox label="Freeze Authority" id="revokeFreezeAuthority" />
-                            <Checkbox label="Update Authority" id="revokeUpdateAuthority" />
+                            <div className="flex justify-end">
+                                <button
+                                    disabled={loading}
+                                    onClick={handleImageUpload}
+                                    className="w-full sm:w-auto rounded-full h-10 px-6
+                                        bg-indigo-600 hover:bg-indigo-700
+                                        text-white text-sm font-bold
+                                        transition-all duration-300"
+                                    >
+                                        {loading ? "Please wait..." : "Create Token"}
+                                </button>
                             </div>
                         </div>
-
-                        <div className="flex justify-end">
-                            <button
-                                disabled={loading}
-                                onClick={handleImageUpload}
-                                className="w-full sm:w-auto rounded-full h-10 px-6
-                                    bg-indigo-600 hover:bg-indigo-700
-                                    text-white text-sm font-bold
-                                    transition-all duration-300"
-                                >
-                                    {loading ? "Please wait..." : "Create Token"}
-                            </button>
-                        </div>
-                    </div>
-                ) : (
-                    <SelectWallet />
-                )}
+                    ) : (
+                        <SelectWallet />
+                    )}
+                </div>
             </div>
         </div>
     );
