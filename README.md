@@ -1,6 +1,10 @@
 
 https://github.com/user-attachments/assets/15906af9-af3d-4706-bc8b-b355be70c7d1
 
+## Links
+
+- **Chrome Extensions GitHub Repository:**  
+  <a href="https://github.com/shrinjoy979/solana-wallet-adapter-chrome-extensions" target="_blank">Open Repository</a>
 
 # 🌞 SOLi – Solana Web3 Dashboard
 
