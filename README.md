@@ -39,7 +39,7 @@ It provides essential wallet and token utilities in a clean UI with seamless Dar
 
 ---
 
-## ⚙️ Setup Project
+## Setup Project
 
 1. Generate an API key from **Jupiter**.
 2. Add it to your `.env` file:
