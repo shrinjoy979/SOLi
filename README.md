@@ -36,7 +36,7 @@ It provides essential wallet and token utilities in a clean UI with seamless Dar
 - Solana Wallet Adapter
 - Jupiter API (token swaps)
 - Raydium SDK
-- Vite (build tool)
+- Vite
 
 ---
 
